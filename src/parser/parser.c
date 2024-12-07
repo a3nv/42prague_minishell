@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 22:31:45 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/07 16:10:53 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/07 19:19:50 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ t_ast_node	*parse_tokens(t_list *token_list)
 
 	list_item = token_list;
 	current_node = NULL;
+	root = NULL;
 	while (list_item)
 	{
 		token = (t_token *) list_item->content;
@@ -103,6 +104,10 @@ t_ast_node	*parse_tokens(t_list *token_list)
 				current_node->value = new_val;
 			}
 		}
+		list_item = list_item->next;
 	}
-	return (root);
+	if (root)
+		return (root);
+	else
+		return (current_node);
 }

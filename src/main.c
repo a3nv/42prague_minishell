@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 23:28:11 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/07 16:38:19 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/07 17:23:39 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ int	main(void)
 		write(STDOUT_FILENO, "Entered: ", 9);
 		write(STDOUT_FILENO, input, ft_strlen(input));
 		ast_node = parse_tokens(list);
-		(void) ast_node;
 		// int i = 0; // Initialize index for commands
 		// while (command->commands[i]) {
 		// 	write(STDOUT_FILENO, "Command ", 8);
