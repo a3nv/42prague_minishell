@@ -12,26 +12,24 @@
 
 #include "../../includes/minishell.h"
 
-
 int	is_redirect(t_token_type type)
 {
 	return (type == TOKEN_REDIR_IN || type == TOKEN_REDIR_OUT
-			|| type == TOKEN_REDIR_APPEND || type == TOKEN_REDIR_HEREDOC);
+		|| type == TOKEN_REDIR_APPEND || type == TOKEN_REDIR_HEREDOC);
 }
-
 
 t_ast_node	*create_node(t_token_type type)
 {
 	t_ast_node	*node;
 
-	(void) type;
+	(void)type;
 	node = malloc(sizeof(t_ast_node));
 	if (!node)
 	{
 		ft_putstr_fd("Error: malloc failed in create_node\n", 2);
 		return (NULL);
 	}
-//	node->type = type;
+	//	node->type = type;
 	node->args = NULL;
 	node->right = NULL;
 	node->left = NULL;
@@ -45,7 +43,7 @@ t_ast_node	*create_file_node(t_token *temp_token)
 	node = malloc(sizeof(t_ast_node));
 	if (!node)
 		return (NULL);
-//	node->type = temp_token->type;
+	//	node->type = temp_token->type;
 	node->args = malloc(sizeof(char *) * 2);
 	if (!node->args)
 	{

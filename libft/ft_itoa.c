@@ -32,7 +32,7 @@ static size_t	ft_itoa_len(long num)
 	return (len);
 }
 
-void	*itoa(long n, char *s, size_t len)
+void	*s_itoa(long n, char *s, size_t len)
 {
 	s[len] = '\0';
 	if (n < 0)
@@ -61,6 +61,6 @@ char	*ft_itoa(int n)
 	s = ft_calloc((len + 1), sizeof(char));
 	if (!s)
 		return (NULL);
-	itoa((long)n, s, len);
+	s_itoa((long)n, s, len);
 	return (s);
 }

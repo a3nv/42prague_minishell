@@ -32,7 +32,7 @@ void	free_list(void *content)
 {
 	t_token	*token;
 
-	token = (t_token *) content;
+	token = (t_token *)content;
 	if (token->value)
 		free(token->value);
 	free(token);
@@ -49,7 +49,8 @@ void	print_tokens(t_list *lexer)
 		token = current->content;
 		printf("Token: \033[0;36m %-20s \033[0m |\t \
 			Type: \033[0;35m %-18s \033[0m \n",
-			token->value, get_token_type_name(token->type));
+				token->value,
+				get_token_type_name(token->type));
 		printf("--------------------------------------------------\n");
 		current = current->next;
 	}
@@ -63,11 +64,11 @@ void	print_node(t_ast_node *node)
 		printf("└── Node Type: PIPE\n");
 	else if (node->type == NODE_REDIRECTION)
 		printf("└── Node Type: REDIRECT IN\n");
-	//else if (node->type == TOKEN_REDIR_OUT)
+	// else if (node->type == TOKEN_REDIR_OUT)
 	//	printf("└── Node Type: REDIRECT OUT\n");
-	//else if (node->type == TOKEN_REDIR_APPEND)
+	// else if (node->type == TOKEN_REDIR_APPEND)
 	//	printf("└── Node Type: REDIRECT APPEND\n");
-	//else if (node->type == TOKEN_REDIR_HEREDOC)
+	// else if (node->type == TOKEN_REDIR_HEREDOC)
 	//	printf("└── Node Type: REDIRECT HEREDOC\n");
 	else
 		printf("└── Node Type: UNKNOWN\n");
@@ -89,15 +90,29 @@ void	display_ast(t_ast_node *node, int depth)
 
 int	main(void)
 {
-	char	*input;
-	t_list	*list;
-	t_ast_node *ast_node;
+	char		*input;
+	t_list		*list;
+	t_ast_node	*ast_node;
 
 	while (1)
 	{
 		write(STDOUT_FILENO, "minishell$> ", 11);
 		input = get_next_line(STDIN_FILENO);
+		if (input == NULL)
+		{
+			printf("\nExiting shell...\n");
+			break ;
+		}
+		if (input[0] == 3)
+		{
+			printf("\nminishell$> ");
+			continue ;
+		}
 		list = lexer(input);
+		if (parse_tokens(list) != 0)
+		{
+			printf("Syntax error\n");
+		}
 		print_tokens(list);
 		ast_node = parse_tokens(list);
 		display_ast(ast_node, 0);
@@ -124,6 +139,6 @@ int	main(void)
 		// 	i++;
 		// }
 		free(input);
-		ft_lstclear(&list, free_list); 
+		ft_lstclear(&list, free_list);
 	}
 }
