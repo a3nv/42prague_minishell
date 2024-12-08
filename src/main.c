@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 23:28:11 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/07 17:23:39 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/08 21:18:20 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,17 @@ void	print_tokens(t_list *lexer)
 
 void	print_node(t_ast_node *node)
 {
+	int	i;
+
+	i = 0;
 	if (node->type == NODE_COMMAND)
-		printf("└── Node Type: WORD, Token Value: %s\n", node->value);
+	{
+		while (node->args[i] != NULL)
+		{
+			printf("└── Node Type: WORD, Token Value: %s\n", node->args[i]);
+			i++;
+		}
+	}
 	else if (node->type == NODE_PIPE)
 		printf("└── Node Type: PIPE\n");
 	else if (node->type == NODE_REDIRECTION)
