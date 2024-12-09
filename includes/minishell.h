@@ -75,5 +75,6 @@ t_ast_node	*parse_tokens(t_list *token_list);
 // parser utils
 int	is_redirect(t_token_type type);
 int	count_args(t_list *current);
+int	validate_input(char *input);
 
 #endif

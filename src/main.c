@@ -107,6 +107,7 @@ int	main(void)
 	{
 		write(STDOUT_FILENO, "minishell$> ", 11);
 		input = get_next_line(STDIN_FILENO);
+		validate_input(input); // template for validating
 		if (input == NULL)
 		{
 			printf("\nExiting shell...\n");
@@ -121,6 +122,7 @@ int	main(void)
 		if (parse_tokens(list) != 0)
 		{
 			printf("Syntax error\n");
+			continue ;
 		}
 		print_tokens(list);
 		ast_node = parse_tokens(list);
