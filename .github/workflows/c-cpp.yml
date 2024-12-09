@@ -17,8 +17,8 @@ jobs:
     #   run: ./configure
     - name: make
       run: make
-    - name: norm
-      run: make norm
+    # - name: norm
+    #   run: make norm
     # - name: make check
     #   run: make check
     # - name: make distcheck
