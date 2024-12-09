@@ -93,6 +93,6 @@ int	validate_input(char *input)
 		free(input);
 		return (1);
 	}
-	free(input);
+	// free(input); // todo: ?? we clear the input here, before we parsed it into tokens and ast tree
 	return (0);
 }

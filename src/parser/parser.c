@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 22:31:45 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/09 00:02:12 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/09 01:22:48 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,26 @@ t_ast_node	*create_ast_node(t_node_type type, char *value, t_list *list)
 	if (!node)
 		return (NULL);
 	node->type = type;
+	node->left = NULL;
+	node->right = NULL;
+	node->args = NULL;
 	if (value)
 	{
-		node->args = malloc(sizeof(char *) * count_args(list));
+		node->args = malloc(sizeof(char *) * (count_args(list) + 1));
 		if (!node->args)
+		{
+			free(node);
 			return  (NULL);
+		}
 		node->args[0] = ft_strdup(value);
 		if (!node->args[0])
 		{
+			free(node->args);
 			free(node);
 			return (NULL);
 		}
+		node->args[1] = NULL;
 	}
-	node->left = NULL;
-	node->right = NULL;
 	return (node);
 }
 
@@ -41,16 +47,24 @@ void	create_pipe_node(t_ast_node **root, t_ast_node **current_node, t_list *list
 {
 	t_ast_node	*pipe_node;
 
+	if (!*current_node)
+		return ;
 	pipe_node = create_ast_node(NODE_PIPE, "|", list);
 	if (!pipe_node)
-		return ;
-	pipe_node->left = *current_node;
+		return;
+	if (!*root)
+		pipe_node->left = *current_node;
+	else
+	{
+		pipe_node->left = *root;
+		(*root)->right = *current_node;
+	}
 	*root = pipe_node;
 	*current_node = NULL;
 }
 
-void	create_redirect_node(t_ast_node **current_node, t_list **list_item,
-		t_token *token)
+
+void	create_redirect_node(t_ast_node **current_node, t_list **list_item, t_token *token)
 {
 	t_ast_node	*redirect_node;
 	t_token		*file_token;
@@ -65,22 +79,22 @@ void	create_redirect_node(t_ast_node **current_node, t_list **list_item,
 		redirect_node->right = create_ast_node(NODE_COMMAND, file_token->value, *list_item);
 		if (!redirect_node->right)
 		{
-			free(redirect_node->args);
+			free_args(redirect_node->args);
 			free(redirect_node);
 			return ;
 		}
 	}
 	else
 	{
-		free(redirect_node->args); // todo: manually clear eachentry in args
+		free_args(redirect_node->args);
 		free(redirect_node);
 		return ;
 	}
 	if (*current_node)
-		(*current_node)->right = redirect_node;
-	else
-		(*current_node) = redirect_node;
+		redirect_node->left = *current_node;
+	*current_node = redirect_node;
 }
+
 
 void	create_command_node(t_ast_node **current_node, t_list *list_item, t_token *token)
 {
@@ -96,7 +110,6 @@ void	create_command_node(t_ast_node **current_node, t_list *list_item, t_token *
 		(*current_node)->args[arg_count] = ft_strdup(token->value);
 		(*current_node)->args[arg_count + 1] = NULL;
 	}
-
 }
 
 t_ast_node	*parse_tokens(t_list *token_list)
@@ -120,8 +133,9 @@ t_ast_node	*parse_tokens(t_list *token_list)
 			create_command_node(&current_node, list_item, token);
 		list_item = list_item->next;
 	}
+	if (root && current_node)
+		root->right = current_node;
 	if (root)
 		return (root);
-	else
-		return (current_node);
+	return (current_node);
 }

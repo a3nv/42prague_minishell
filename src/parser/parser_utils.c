@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 00:30:05 by aevstign          #+#    #+#             */
-/*   Updated: 2024/12/07 17:07:35 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/09 01:17:11 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,4 +103,19 @@ void	fill_args(t_ast_node *command_node, t_list *list, int argc)
 		i++;
 	}
 	command_node->args[argc] = NULL;
+}
+
+void	free_args(char **args)
+{
+	int	i;
+
+	if (!args)
+		return ;
+	i = 0;
+	while (args[i])
+	{
+		free(args[i]);
+		i++;
+	}
+	free(args);
 }

@@ -56,45 +56,73 @@ void	print_tokens(t_list *lexer)
 	}
 }
 
-void	print_node(t_ast_node *node)
+// todo: delete
+void	print_node(t_ast_node *node, int depth)
 {
 	int	i;
+	int	j;
 
-	i = 0;
+	if (!node)
+		return;
 	if (node->type == NODE_COMMAND)
 	{
-		while (node->args[i] != NULL)
-		{
-			printf("└── Node Type: WORD, Token Value: %s\n", node->args[i]);
-			i++;
+		printf("COMMAND Node:\n");
+		for (i = 0; node->args && node->args[i]; i++) {
+			for (j = 0; j < depth; j++)
+				printf("    ");
+			printf("    ├── Argument: %s\n", node->args[i]);
 		}
 	}
 	else if (node->type == NODE_PIPE)
-		printf("└── Node Type: PIPE\n");
+	{
+		printf("PIPE Node\n");
+	}
 	else if (node->type == NODE_REDIRECTION)
-		printf("└── Node Type: REDIRECT IN\n");
-	// else if (node->type == TOKEN_REDIR_OUT)
-	//	printf("└── Node Type: REDIRECT OUT\n");
-	// else if (node->type == TOKEN_REDIR_APPEND)
-	//	printf("└── Node Type: REDIRECT APPEND\n");
-	// else if (node->type == TOKEN_REDIR_HEREDOC)
-	//	printf("└── Node Type: REDIRECT HEREDOC\n");
+	{
+		if (node->args)
+		{
+			if (strcmp(node->args[0], ">") == 0)
+				printf("REDIRECT OUT Node\n");
+			else if (strcmp(node->args[0], ">>") == 0)
+				printf("REDIRECT APPEND Node\n");
+			else if (strcmp(node->args[0], "<") == 0)
+				printf("REDIRECT IN Node\n");
+			else if (strcmp(node->args[0], "<<") == 0)
+				printf("REDIRECT HEREDOC Node\n");
+			else
+				printf("UNKNOWN REDIRECTION Node\n");
+		}
+		else
+			printf("REDIRECTION Node with NO Operator\n");
+	}
 	else
-		printf("└── Node Type: UNKNOWN\n");
+		printf("UNKNOWN Node\n");
 }
 
+// todo: delete
 void	display_ast(t_ast_node *node, int depth)
 {
 	int	i;
 
-	i = 0;
-	if (node == NULL)
-		return ;
-	display_ast(node->left, depth + 1);
-	while (i++ < depth)
-		printf("	");
-	print_node(node);
-	display_ast(node->right, depth + 1);
+	if (!node)
+		return;
+	for (i = 0; i < depth; i++)
+		printf("    ");
+	print_node(node, depth);
+	if (node->left)
+	{
+		for (i = 0; i < depth + 1; i++)
+			printf("    ");
+		printf("├── Left:\n");
+		display_ast(node->left, depth + 2);
+	}
+	if (node->right)
+	{
+		for (i = 0; i < depth + 1; i++)
+			printf("    ");
+		printf("└── Right:\n");
+		display_ast(node->right, depth + 2);
+	}
 }
 
 int	main(void)
@@ -119,36 +147,16 @@ int	main(void)
 			continue ;
 		}
 		list = lexer(input);
-		if (parse_tokens(list) != 0)
+		print_tokens(list);
+		ast_node = parse_tokens(list);
+		if (ast_node == NULL)
 		{
 			printf("Syntax error\n");
 			continue ;
 		}
-		print_tokens(list);
-		ast_node = parse_tokens(list);
 		display_ast(ast_node, 0);
 		write(STDOUT_FILENO, "Entered: ", 9);
 		write(STDOUT_FILENO, input, ft_strlen(input));
-		ast_node = parse_tokens(list);
-		// int i = 0; // Initialize index for commands
-		// while (command->commands[i]) {
-		// 	write(STDOUT_FILENO, "Command ", 8);
-		// 	char command_index[10];
-		// 	sprintf(command_index, "%d", i + 1); // Convert index to string
-		// 	write(STDOUT_FILENO, command_index, strlen(command_index));
-		// 	write(STDOUT_FILENO, ":\n", 2);
-		//
-		// 	int j = 0; // Initialize index for arguments
-		// 	while (command->commands[i]->arguments[j]) {
-		// 		char *arg = command->commands[i]->arguments[j];
-		// 		write(STDOUT_FILENO, "  Transformed arg: ", 19);
-		// 		write(STDOUT_FILENO, arg, strlen(arg));
-		// 		write(STDOUT_FILENO, "\n", 1); // Add newline for readability
-		// 		j++;
-		// 	}
-		// 	write(STDOUT_FILENO, "\n", 1); // Separate commands for clarity
-		// 	i++;
-		// }
 		free(input);
 		ft_lstclear(&list, free_list);
 	}

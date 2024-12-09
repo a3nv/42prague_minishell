@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:12:25 by aevstign          #+#    #+#             */
-/*   Updated: 2024/12/08 19:14:55 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/09 01:17:25 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ t_ast_node	*parse_tokens(t_list *token_list);
 // parser utils
 int	is_redirect(t_token_type type);
 int	count_args(t_list *current);
+void	free_args(char **args);
 int	validate_input(char *input);
 
 #endif
