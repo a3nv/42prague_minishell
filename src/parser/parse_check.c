@@ -71,6 +71,7 @@ int	handle_pipes(char *input)
 	return (0);
 }
 
+// todo: this validation should happen later, after we parsed input into tokens, otherwise we do not know what to validate
 int	validate_input(char *input)
 {
 	if (!input)
