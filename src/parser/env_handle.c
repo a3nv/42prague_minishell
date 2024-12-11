@@ -13,7 +13,7 @@ int	export_env_var(const char *var)
 	char	*key;
 	char	*value;
 
-	eq_pos = strchr(var, '=');
+	eq_pos = ft_strchr(var, '=');
 	if (eq_pos)
 	{
 		key = ft_substr(var, 0, eq_pos - var);
@@ -44,11 +44,11 @@ int	unset_env_var(const char *var)
 
 int	handle_env_variables(char *input)
 {
-	if (strncmp(input, "export ", 7) == 0)
+	if (ft_strncmp(input, "export ", 7) == 0)
 	{
 		return (export_env_var(input + 7));
 	}
-	if (strncmp(input, "unset ", 6) == 0)
+	if (ft_strncmp(input, "unset ", 6) == 0)
 	{
 		return (unset_env_var(input + 6));
 	}
@@ -57,26 +57,30 @@ int	handle_env_variables(char *input)
 
 char	*replace_env_var(const char *input)
 {
-	char *result = NULL;
-	char *var_name = NULL;
-	char *env_value = NULL;
-	int i = 0, j = 0, result_len = 0;
+	char	*result;
+	char	*var_name;
+	char	*env_value;
+	int		i;
+	int		j;
+	int		result_len;
 
+	result = NULL;
+	var_name = NULL;
+	env_value = NULL;
+	i = 0;
+	j = 0;
+	result_len = 0;
 	while (input[i])
 	{
 		if (input[i] == '$' && input[i + 1] != '\0')
 		{
 			i++;
 			j = 0;
-
-			while (input[i + j] && (isalnum(input[i + j]) || input[i
+			while (input[i + j] && (ft_isalnum(input[i + j]) || input[i
 					+ j] == '_'))
 				j++;
-
 			var_name = ft_substr(input, i, j);
-
 			env_value = getenv(var_name);
-
 			if (env_value)
 			{
 				result_len += ft_strlen(env_value);
@@ -95,7 +99,7 @@ char	*replace_env_var(const char *input)
 	return (result);
 }
 
-// to do 
+// to do
 // need to implement somewhere replace_env_var(input) but almost all i tried flawlessly failed
 // should be in lexer as i think
 // also tried make usage in main but it works weird in windows
