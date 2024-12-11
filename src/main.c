@@ -125,16 +125,25 @@ void	display_ast(t_ast_node *node, int depth)
 	}
 }
 
-int	main(void)
+// int	main(int argc, char *argv[], char **env)
+int	main(int argc, char *argv[])
 {
+	(void)argc;
+	(void)argv;
 	char		*input;
 	t_list		*list;
 	t_ast_node	*ast_node;
-
+	// while(env)
+	// {
+	// 	printf("%s",*env); 
+	// 	env++;
+	// }
+	// shows what env variable holds
 	while (1)
 	{
 		write(STDOUT_FILENO, "minishell$> ", 11);
 		input = get_next_line(STDIN_FILENO);
+		// handle_env_variables(input);
 		validate_input(input); // template for validating
 		if (input == NULL)
 		{
