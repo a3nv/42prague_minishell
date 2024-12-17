@@ -50,4 +50,4 @@ re: fclean all
 norm: 
 	norminette $(SRC) minishell.h $(LIBFT_PATH)*.h $(LIBFT_PATH)*.c
 
-.PHONY: all fclean clean re norm
+.PHONY: all fclean clean re norm test run_test
