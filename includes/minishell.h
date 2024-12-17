@@ -59,6 +59,11 @@ typedef struct s_ast_node
 	struct s_ast_node	*right;
 }				t_ast_node;
 
+// main utils
+void	print_tokens(t_list *lexer);
+void	free_list(void *content);
+const char	*get_token_type_name(t_token_type type);
+
 // lexer_utils
 
 t_token_type	get_operator_type(char *str, int *advanced);

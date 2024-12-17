@@ -7,6 +7,7 @@ LIBFT_PATH = libft/
 LIBFT_LIB = $(LIBFT_PATH)libft.a
 
 SRC = src/main.c \
+	  src/main_utils.c \
 	  src/lexer/lexer.c \
 	  src/lexer/lexer_utils.c \
 	  src/parser/parser.c \
@@ -29,9 +30,16 @@ $(OBJECTS): includes/minishell.h
 $(LIBFT_LIB):
 	make bonus -C $(LIBFT_PATH)
 
+test:
+	make -C tests
+
+run_test:
+	make -C tests run
+
 clean:
 	rm -f $(OBJECTS)
 	make clean -C $(LIBFT_PATH)
+	make clean -C tests
 
 fclean: clean
 	rm -f $(NAME)
