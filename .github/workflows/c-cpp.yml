@@ -19,6 +19,13 @@ jobs:
       run: make
     - name: Run Unit Tests
       run: make test || ./tests/test_suite
+    - name: Generate Coverage Report
+      run: lcov --capture --directory test --output-file coverage.info
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v5
+      with:
+        files: coverage.info
+        token: ${{ secrets.CODECOV_TOKEN }}
     # - name: norm
     #   run: make norm
     # - name: make check

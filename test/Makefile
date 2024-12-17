@@ -1,5 +1,6 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g --coverage
+LDFLAG = --coverage
 
 LIBFT_PATH = ../libft/
 LIBFT_LIB = $(LIBFT_PATH)libft.a
@@ -10,13 +11,13 @@ SRCS = ../src/main_utils.c \
 
 TESTS = unit/test_lexer.c 
 
-all: $(LIBFT_LIB) tests
+all: $(LIBFT_LIB) test
 
 $(LIBFT_LIB):
 	make bonus -C $(LIBFT_PATH)
 
 tests: $(TESTS) $(LIBFT_LIB)
-	$(CC) $(CFLAGS) $(SRCS) $(TESTS) -o test_suite $(LIBFT_LIB)
+	$(CC) $(CFLAGS) $(SRCS) $(TESTS) -o test_suite $(LIBFT_LIB) $(LDFLAG)
 
 run:
 	./test_suite

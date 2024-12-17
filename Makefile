@@ -31,10 +31,10 @@ $(LIBFT_LIB):
 	make bonus -C $(LIBFT_PATH)
 
 test:
-	make -C tests
+	make -C test
 
 run_test:
-	make -C tests run
+	make -C test run
 
 clean:
 	rm -f $(OBJECTS)
