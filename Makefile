@@ -39,7 +39,7 @@ run_test:
 clean:
 	rm -f $(OBJECTS)
 	make clean -C $(LIBFT_PATH)
-	make clean -C tests
+	make clean -C test
 
 fclean: clean
 	rm -f $(NAME)

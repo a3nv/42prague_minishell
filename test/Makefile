@@ -16,7 +16,7 @@ all: $(LIBFT_LIB) test
 $(LIBFT_LIB):
 	make bonus -C $(LIBFT_PATH)
 
-tests: $(TESTS) $(LIBFT_LIB)
+test: $(TESTS) $(LIBFT_LIB)
 	$(CC) $(CFLAGS) $(SRCS) $(TESTS) -o test_suite $(LIBFT_LIB) $(LDFLAG)
 
 run:

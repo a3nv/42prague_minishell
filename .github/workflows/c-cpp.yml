@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -19,8 +18,22 @@ jobs:
       run: make
     - name: Run Unit Tests
       run: make test || ./tests/test_suite
+    - name: Debug Directory Content
+      run: |
+        echo "Current directory: $(pwd)"
+        echo "Files in ./test:"
+        ls -la ./test
+        echo "Files in ./src:"
+        ls -la ./src
+    - name: Verify Coverage Files
+      run: |
+        echo "Checking for .gcda files:"
+        find . -name "*.gcda" || echo "No .gcda files found!"
+    - name: Run test
+      run: make run_test
     - name: Generate Coverage Report
       run: lcov --capture --directory test --output-file coverage.info
+
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v5
       with:
