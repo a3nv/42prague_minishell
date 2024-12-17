@@ -3,13 +3,14 @@
 ## Todo
 
 ### Structure
-- [ ] move gnl files into libft;
-- [ ] add hash map files into libft;
-- [ ] update libft to build those files;
+- [x] move gnl files into libft;
+- [x] add hash map files into libft;
+- [x] update libft to build those files;
 
 ### Lexer
+
 ### Parser
-- [ ] parse tokens into a strucutre called smth like command;
+- [x] ~parse tokens into a strucutre called smth like command~;
 - [ ] handle validation while parsing;
 
 #### Examples
@@ -83,7 +84,7 @@ COMMAND Node:
 
 ```
 
--[ ] this example gives different result after parsing
+- [ ] this example gives different result after parsing
 `cat file.txt | grep foo | wc -l | sort | uniq -c > output.txt`
 ```yaml
 REDIRECT OUT Node
@@ -118,7 +119,42 @@ REDIRECT OUT Node
 
 ```
 ### Expander
+
 ### Executor
+cat file.txt | grep foo | wc -l > output.txt
+Expected tree
+```yaml
+REDIRECT OUT Node
+    ├── Left:
+        PIPE Node
+            ├── Left:
+                PIPE Node
+                    ├── Left:
+                        COMMAND Node:
+                            ├── Argument: cat
+                            ├── Argument: file.txt
+                    └── Right:
+                        COMMAND Node:
+                            ├── Argument: grep
+                            ├── Argument: foo
+            └── Right:
+                COMMAND Node:
+                    ├── Argument: wc
+                    ├── Argument: -l
+    └── Right:
+        COMMAND Node:
+            ├── Argument: output.txt
+```
+Expected tree traversal
+```bash
+Executing command: cat file.txt
+Executing command: grep foo
+Executing pipe
+Executing command: wc -l
+Executing command: output.txt
+Executing redir
+Executing pipe
+```
 
 ## Notes
 

@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:12:25 by aevstign          #+#    #+#             */
-/*   Updated: 2024/12/09 01:17:25 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/17 00:54:00 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,6 @@ int	count_args(t_list *current);
 void	free_args(char **args);
 int	validate_input(char *input);
 
+// parser
+void	execute_ast(t_ast_node *node);
 #endif

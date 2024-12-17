@@ -11,7 +11,8 @@ SRC = src/main.c \
 	  src/lexer/lexer_utils.c \
 	  src/parser/parser.c \
 	  src/parser/parse_check.c \
-	  src/parser/parser_utils.c
+	  src/parser/parser_utils.c \
+	  src/executor/executor.c
 
 OBJECTS = $(SRC:.c=.o)
 

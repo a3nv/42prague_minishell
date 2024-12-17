@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 23:28:11 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/08 21:18:20 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/17 00:56:52 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ int	main(int argc, char *argv[])
 		write(STDOUT_FILENO, "minishell$> ", 11);
 		input = get_next_line(STDIN_FILENO);
 		// handle_env_variables(input);
-		validate_input(input); // template for validating
+		// validate_input(input); // template for validating
 		if (input == NULL)
 		{
 			printf("\nExiting shell...\n");
@@ -164,6 +164,7 @@ int	main(int argc, char *argv[])
 			continue ;
 		}
 		display_ast(ast_node, 0);
+		execute_ast(ast_node);
 		write(STDOUT_FILENO, "Entered: ", 9);
 		write(STDOUT_FILENO, input, ft_strlen(input));
 		free(input);
