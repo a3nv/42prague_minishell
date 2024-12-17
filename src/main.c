@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 23:28:11 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/17 00:56:52 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/17 21:57:13 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,18 +89,10 @@ int	main(int argc, char *argv[])
 	char		*input;
 	t_list		*list;
 	t_ast_node	*ast_node;
-	// while(env)
-	// {
-	// 	printf("%s",*env); 
-	// 	env++;
-	// }
-	// shows what env variable holds
 	while (1)
 	{
 		write(STDOUT_FILENO, "minishell$> ", 11);
 		input = get_next_line(STDIN_FILENO);
-		// handle_env_variables(input);
-		// validate_input(input); // template for validating
 		if (input == NULL)
 		{
 			printf("\nExiting shell...\n");
