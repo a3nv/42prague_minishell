@@ -8,6 +8,7 @@ LIBFT_LIB = $(LIBFT_PATH)libft.a
 
 SRC = src/main.c \
 	  src/main_utils.c \
+	  src/printer/tree_printer.c \
 	  src/lexer/lexer.c \
 	  src/lexer/lexer_utils.c \
 	  src/parser/parser.c \
@@ -50,4 +51,4 @@ re: fclean all
 norm: 
 	norminette $(SRC) minishell.h $(LIBFT_PATH)*.h $(LIBFT_PATH)*.c
 
-.PHONY: all fclean clean re norm test run_test
+.PHONY: all fclean clean re norm test run_tes

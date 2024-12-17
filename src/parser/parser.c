@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 22:31:45 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/09 01:22:48 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/17 17:02:09 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,10 +128,25 @@ t_ast_node	*parse_tokens(t_list *token_list)
 		if (token->type == TOKEN_PIPE)
 			create_pipe_node(&root, &current_node, list_item);
 		else if (is_redirect(token->type))
+		{
 			create_redirect_node(&current_node, &list_item, token);
+			if (!root)
+				root = current_node;
+			else
+			{
+				t_ast_node *redir_node = current_node;
+				redir_node->left = root;
+				root = redir_node;
+			}
+		}
 		else
 			create_command_node(&current_node, list_item, token);
-		list_item = list_item->next;
+		// list_item = list_item->next;
+		if (token->type != TOKEN_REDIR_OUT &&
+			token->type != TOKEN_REDIR_IN &&
+			token->type != TOKEN_REDIR_APPEND &&
+			token->type != TOKEN_REDIR_HEREDOC)
+			list_item = list_item->next;
 	}
 	if (root && current_node)
 		root->right = current_node;

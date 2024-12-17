@@ -1,5 +1,19 @@
 # minishell
 
+## Generate coverage locally
+
+```bash
+make                                                            # Compile with coverage flags
+make test                                                       # Compile tests
+make run_test                                                   # Run test to generate .gcda files
+#./my_program                                                   # Run program or tests
+# gcov parser.c                                                 # View line coverage in terminal
+lcov --capture --directory . --output-file coverage.info        # Capture coverage data
+genhtml coverage.info --output-directory coverage_report        # Generate HTML report
+xdg-open coverage_report/index.html                             # Open report
+open coverage_report/index.html                                 # Open report (macos)
+make clean                                                      # Clean up
+```
 ## Todo
 
 ### Structure

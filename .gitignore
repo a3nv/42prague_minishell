@@ -2,3 +2,9 @@
 *.a
 minishell
 .idea
+coverage.info
+coverage_report/
+test/test_suite
+test/*.gcda
+test/*.gcno
+test/test_suite.dSYM/

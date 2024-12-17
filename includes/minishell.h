@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:12:25 by aevstign          #+#    #+#             */
-/*   Updated: 2024/12/17 00:54:00 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/17 23:51:14 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,13 @@ typedef struct s_ast_node
 }				t_ast_node;
 
 // main utils
-void	print_tokens(t_list *lexer);
-void	free_list(void *content);
-const char	*get_token_type_name(t_token_type type);
+void			print_tokens(t_list *lexer);
+void			free_list(void *content);
+const char		*get_token_type_name(t_token_type type);
 
+// printer
+void			print_node(t_ast_node *node, int depth);
+void			display_ast(t_ast_node *node, int depth);
 // lexer_utils
 
 t_token_type	get_operator_type(char *str, int *advanced);
@@ -75,14 +78,14 @@ void			free_token(t_token *token);
 t_list			*lexer(char *input);
 
 // parser
-t_ast_node	*parse_tokens(t_list *token_list);
+t_ast_node		*parse_tokens(t_list *token_list);
 
 // parser utils
-int	is_redirect(t_token_type type);
-int	count_args(t_list *current);
-void	free_args(char **args);
-int	validate_input(char *input);
+int				is_redirect(t_token_type type);
+int				count_args(t_list *current);
+void			free_args(char **args);
+int				validate_input(char *input);
 
 // parser
-void	execute_ast(t_ast_node *node);
+void			execute_ast(t_ast_node *node);
 #endif
