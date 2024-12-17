@@ -13,7 +13,15 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Install dependencies
-      run: sudo apt-get update && sudo apt-get install -y build-essential cmake valgrind lcov
+      run: sudo apt-get update && sudo apt-get install -y build-essential cmake valgrind lcov python3 python3-pip python3-setuptools pipx
+    - name: Upgrade pip and setuptools
+      run: |
+         python3 -m pip install --upgrade pip setuptools
+    - name: Install norminette (pip)
+      run: |
+         python3 -m pip install norminette
+    - name: Run norminette
+      run: make norm
     - name: Build
       run: make
     - name: Run Unit Tests
