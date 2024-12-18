@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 00:40:18 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/17 00:54:45 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/18 15:28:55 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	execute_node(t_ast_node *node)
 	{
 		printf("Executing command: ");
 		i = 0;
-		while(node->args && node->args[i])
+		while (node->args && node->args[i])
 		{
 			printf("%s ", node->args[i]);
 			i++;

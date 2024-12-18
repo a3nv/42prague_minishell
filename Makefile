@@ -12,7 +12,7 @@ SRC = src/main.c \
 	  src/lexer/lexer.c \
 	  src/lexer/lexer_utils.c \
 	  src/parser/parser.c \
-	  src/parser/parse_check.c \
+	  src/parser/parser_node_utils.c \
 	  src/parser/parser_utils.c \
 	  src/executor/executor.c
 
@@ -49,6 +49,6 @@ fclean: clean
 re: fclean all
 
 norm: 
-	norminette $(SRC) minishell.h $(LIBFT_PATH)*.h $(LIBFT_PATH)*.c
+	norminette $(SRC) includes/minishell.h $(LIBFT_PATH)*.h $(LIBFT_PATH)*.c
 
 .PHONY: all fclean clean re norm test run_tes

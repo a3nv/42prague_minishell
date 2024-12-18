@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 00:30:05 by aevstign          #+#    #+#             */
-/*   Updated: 2024/12/09 01:17:11 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/18 15:28:16 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,46 +16,6 @@ int	is_redirect(t_token_type type)
 {
 	return (type == TOKEN_REDIR_IN || type == TOKEN_REDIR_OUT
 		|| type == TOKEN_REDIR_APPEND || type == TOKEN_REDIR_HEREDOC);
-}
-
-t_ast_node	*create_node(t_token_type type)
-{
-	t_ast_node	*node;
-
-	(void)type;
-	node = malloc(sizeof(t_ast_node));
-	if (!node)
-	{
-		ft_putstr_fd("Error: malloc failed in create_node\n", 2);
-		return (NULL);
-	}
-	//	node->type = type;
-	node->args = NULL;
-	node->right = NULL;
-	node->left = NULL;
-	return (node);
-}
-
-t_ast_node	*create_file_node(t_token *temp_token)
-{
-	t_ast_node	*node;
-
-	node = malloc(sizeof(t_ast_node));
-	if (!node)
-		return (NULL);
-	//	node->type = temp_token->type;
-	node->args = malloc(sizeof(char *) * 2);
-	if (!node->args)
-	{
-		free(node);
-		return (NULL);
-	}
-	node->args[0] = temp_token->value;
-	node->args[1] = NULL;
-	node->left = NULL;
-	node->right = NULL;
-	free(temp_token);
-	return (node);
 }
 
 int	count_args(t_list *current)

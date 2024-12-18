@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:12:25 by aevstign          #+#    #+#             */
-/*   Updated: 2024/12/17 23:51:14 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/18 23:11:33 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_token
 	char			*value;
 }				t_token;
 
-typedef enum e_node_type 
+typedef enum e_node_type
 {
 	NODE_COMMAND,
 	NODE_PIPE,
@@ -79,6 +79,11 @@ t_list			*lexer(char *input);
 
 // parser
 t_ast_node		*parse_tokens(t_list *token_list);
+void			create_command_node(t_ast_node **current_node,
+					t_list *list_item, t_token *token);
+
+// parseer node utils 
+t_ast_node		*create_ast_node(t_node_type type, char *value, t_list *list);
 
 // parser utils
 int				is_redirect(t_token_type type);
