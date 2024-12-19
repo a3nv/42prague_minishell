@@ -6,11 +6,12 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 23:28:11 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/18 00:09:48 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/19 22:59:49 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 char	*read_input(void)
@@ -36,8 +37,17 @@ t_ast_node	*transform_list(t_list *list)
 		printf("Syntax error\n");
 		return (NULL);
 	}
-	display_ast(ast_node, 0);
+	if (DEBUG_MODE)
+		display_ast(ast_node, 0);
 	return (ast_node);
+}
+
+void	print_debug_info(void)
+{
+	if (!DEBUG_MODE)
+		printf("Debug mode is disabled. DEBUG_MODE = %d.\n", DEBUG_MODE);
+	else
+		printf("Debug mode is enabled. DEBUG_MODE = %d.\n", DEBUG_MODE);
 }
 
 int	main(int argc, char *argv[])
@@ -48,6 +58,7 @@ int	main(int argc, char *argv[])
 
 	(void)argc;
 	(void)argv;
+	print_debug_info();
 	while (1)
 	{
 		write(STDOUT_FILENO, "minishell$> ", 11);
@@ -58,8 +69,11 @@ int	main(int argc, char *argv[])
 		if (!ast_node)
 			continue ;
 		execute_ast(ast_node);
-		write(STDOUT_FILENO, "Entered: ", 9);
-		write(STDOUT_FILENO, input, ft_strlen(input));
+		if (DEBUG_MODE)
+		{
+			write(STDOUT_FILENO, "Entered: ", 9);
+			write(STDOUT_FILENO, input, ft_strlen(input));
+		}
 		free(input);
 		ft_lstclear(&list, free_list);
 	}

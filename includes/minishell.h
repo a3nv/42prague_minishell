@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:12:25 by aevstign          #+#    #+#             */
-/*   Updated: 2024/12/18 23:11:33 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/19 15:27:25 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,13 @@
 # include <string.h>
 # include <stdlib.h>
 # include <stdbool.h>
+# include <limits.h>
 # include "../libft/libft.h"
 
 # define MAX_TOKENS 100
+# ifndef DEBUG_MODE
+#  define DEBUG_MODE 0
+# endif
 
 typedef enum e_token_type
 {
@@ -93,4 +97,7 @@ int				validate_input(char *input);
 
 // parser
 void			execute_ast(t_ast_node *node);
+
+// executor
+void			builtin_pwd(void);
 #endif

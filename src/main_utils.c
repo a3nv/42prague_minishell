@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 21:56:32 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/18 00:10:17 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/19 15:24:53 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	print_tokens(t_list *lexer)
 	t_list	*current;
 	t_token	*token;
 
+	if (!DEBUG_MODE)
+		return ;
 	current = lexer;
 	while (current)
 	{
