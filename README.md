@@ -1,5 +1,13 @@
 # minishell
 
+## Codecov
+
+When updating codecov.yml do not forget to validate it!
+
+```yaml
+curl -X POST --data-binary @codecov.yml https://codecov.io/validate
+```
+
 ## Generate coverage locally
 
 ```bash
