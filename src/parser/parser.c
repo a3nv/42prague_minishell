@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 22:31:45 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/18 23:10:18 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/21 23:29:17 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	create_command_node(t_ast_node **current_node, t_list *list_item,
 			arg_count++;
 		(*current_node)->args[arg_count] = ft_strdup(token->value);
 		(*current_node)->args[arg_count + 1] = NULL;
+		(*current_node)->argc = arg_count + 1;
 	}
 	else
 		*current_node = create_ast_node(NODE_COMMAND, token->value, list_item);

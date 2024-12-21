@@ -16,7 +16,8 @@ SRC = src/main.c \
 	  src/parser/parser_node_utils.c \
 	  src/parser/parser_utils.c \
 	  src/executor/executor.c \
-	  src/executor/builtin_pwd.c
+	  src/executor/builtin_pwd.c \
+	  src/executor/builtin_cd.c \
 
 OBJECTS = $(SRC:.c=.o)
 DEBUG_OBJECTS = $(SRC:.c=_debug.o)
