@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:12:25 by aevstign          #+#    #+#             */
-/*   Updated: 2024/12/19 15:27:25 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/21 23:16:56 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_ast_node
 {
 	t_node_type			type;
 	char				**args;
+	int					argc;
 	int					file_type;
 	struct s_ast_node	*left;
 	struct s_ast_node	*right;
@@ -100,4 +101,5 @@ void			execute_ast(t_ast_node *node);
 
 // executor
 void			builtin_pwd(void);
+void			builtin_cd(t_ast_node *node);
 #endif

@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 00:40:18 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/19 23:03:22 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/21 23:17:06 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	execute_builtin(t_ast_node *node)
 	printf("resut: %d", ft_strcmp(node->args[0], "pwd"));
 	if (ft_strcmp(node->args[0], "pwd") == 0)
 		builtin_pwd();
+	else if (ft_strcmp(node->args[0], "cd") == 0)
+		builtin_cd(node);
 }
 
 void	execute_node(t_ast_node *node)
