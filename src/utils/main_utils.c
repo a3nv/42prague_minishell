@@ -6,11 +6,11 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 21:56:32 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/19 15:24:53 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/22 13:16:34 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 const char	*get_token_type_name(t_token_type type)
 {
@@ -26,16 +26,6 @@ const char	*get_token_type_name(t_token_type type)
 	if (type >= 0 && type < 7)
 		return (token_type_names[type]);
 	return ("UNKNOWN");
-}
-
-void	free_list(void *content)
-{
-	t_token	*token;
-
-	token = (t_token *)content;
-	if (token->value)
-		free(token->value);
-	free(token);
 }
 
 void	print_tokens(t_list *lexer)

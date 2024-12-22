@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:12:25 by aevstign          #+#    #+#             */
-/*   Updated: 2024/12/21 23:16:56 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/22 13:16:31 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,23 @@ typedef struct s_ast_node
 	struct s_ast_node	*right;
 }				t_ast_node;
 
+typedef struct s_state
+{
+	char			*input;
+	t_list			*token_list;
+	t_ast_node		*root_node;
+	t_ast_node		*current_node;
+}			t_state;
+
+// alloc
+t_state			*init(void);
+
+// gc
+void			free_list(void *content);
+void			free_state(t_state *state);
+
 // main utils
 void			print_tokens(t_list *lexer);
-void			free_list(void *content);
 const char		*get_token_type_name(t_token_type type);
 
 // printer
