@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   alloc.c                                            :+:      :+:    :+:   */
+/*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/22 13:01:18 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/22 19:54:53 by iasonov          ###   ########.fr       */
+/*   Created: 2024/12/22 19:55:13 by iasonov           #+#    #+#             */
+/*   Updated: 2024/12/22 20:32:29 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_state	*init(char **envp)
+void	builtin_env(t_state *state)
 {
-	t_state	*state;
+	char	**venv;
+	int		i;
 
-	state = malloc(sizeof(t_state));
-	if (!state)
+	i = 0;
+	venv = state->envp;
+	while (venv[i] != NULL)
 	{
-		perror("Failed to allocate shell state");
-		exit(EXIT_FAILURE);
+		ft_write(venv[i], STDOUT_FILENO);
+		ft_write("\n", STDOUT_FILENO);
+		i++;
 	}
-	state->input = NULL;
-	state->token_list = NULL;
-	state->root_node = NULL;
-	state->current_node = NULL;
-	state->envp = envp;
-	return (state);
 }
