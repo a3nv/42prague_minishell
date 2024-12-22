@@ -20,6 +20,7 @@ SRC = src/main.c \
 	  src/executor/executor.c \
 	  src/executor/builtin_pwd.c \
 	  src/executor/builtin_cd.c \
+	  src/executor/builtin_exit.c \
 
 OBJECTS = $(SRC:.c=.o)
 DEBUG_OBJECTS = $(SRC:.c=_debug.o)

@@ -5,7 +5,8 @@ LDFLAG = --coverage
 LIBFT_PATH = ../libft/
 LIBFT_LIB = $(LIBFT_PATH)libft.a
 
-SRCS = ../src/main_utils.c \
+SRCS = ../src/utils/main_utils.c \
+      ../src/gc/gc.c \
       ../src/lexer/lexer.c \
 	  ../src/lexer/lexer_utils.c \
 

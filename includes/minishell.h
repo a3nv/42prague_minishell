@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:12:25 by aevstign          #+#    #+#             */
-/*   Updated: 2024/12/22 13:16:31 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/22 13:34:35 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,10 @@ void			free_args(char **args);
 int				validate_input(char *input);
 
 // parser
-void			execute_ast(t_ast_node *node);
+void			execute_ast(t_ast_node *node, t_state *state);
 
 // executor
 void			builtin_pwd(void);
 void			builtin_cd(t_ast_node *node);
+void			builtin_exit(t_state *state);
 #endif

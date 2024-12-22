@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 23:28:11 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/22 13:28:22 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/22 13:34:17 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	main(int argc, char *argv[])
 		state->root_node = transform_list(state->token_list);
 		if (!state->root_node)
 			continue ;
-		execute_ast(state->root_node);
+		execute_ast(state->root_node, state);
 		if (DEBUG_MODE)
 		{
 			ft_write("Entered: ", STDOUT_FILENO);
