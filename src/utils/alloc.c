@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_cd.c                                       :+:      :+:    :+:   */
+/*   alloc.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/21 23:17:21 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/22 12:23:41 by iasonov          ###   ########.fr       */
+/*   Created: 2024/12/22 13:01:18 by iasonov           #+#    #+#             */
+/*   Updated: 2024/12/22 13:10:59 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	builtin_cd(t_ast_node *node)
+t_state	*init(void)
 {
-	if (node->argc < 2)
+	t_state	*state;
+
+	state = malloc(sizeof(t_state));
+	if (!state)
 	{
-		ft_write("cd: missing argument\n", STDERR_FILENO);
-		return ;
+		perror("Failed to allocate shell state");
+		exit(EXIT_FAILURE);
 	}
-	if (node->argc > 2)
-	{
-		ft_write("cd: too many arguments\n", STDERR_FILENO);
-		return ;
-	}
-	if (chdir(node->args[1]) != 0)
-	{
-		perror("cd");
-	}
+	state->input = NULL;
+	state->token_list = NULL;
+	state->root_node = NULL;
+	state->current_node = NULL;
+	return (state);
 }

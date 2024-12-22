@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 22:49:26 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/18 15:30:37 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/22 12:23:52 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ long		ft_atoi(const char *str);
 void		*ft_calloc(size_t count, size_t size);
 char		*ft_strdup(const char *s1);
 char		*ft_strndup(const char *src, size_t n);
+void		ft_write(char *s, int fd);
 
 // Part 2 - Additional functions
 char		*ft_substr(char const *s, unsigned int start, size_t len);

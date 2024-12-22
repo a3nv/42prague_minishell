@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 23:28:11 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/19 22:59:49 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/22 13:34:17 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,29 +52,28 @@ void	print_debug_info(void)
 
 int	main(int argc, char *argv[])
 {
-	char		*input;
-	t_list		*list;
-	t_ast_node	*ast_node;
+	t_state		*state;
 
 	(void)argc;
 	(void)argv;
 	print_debug_info();
 	while (1)
 	{
-		write(STDOUT_FILENO, "minishell$> ", 11);
-		input = read_input();
-		list = lexer(input);
-		print_tokens(list);
-		ast_node = transform_list(list);
-		if (!ast_node)
+		state = init();
+		ft_write("minishell$> ", STDOUT_FILENO);
+		state->input = read_input();
+		state->token_list = lexer(state->input);
+		print_tokens(state->token_list);
+		state->root_node = transform_list(state->token_list);
+		if (!state->root_node)
 			continue ;
-		execute_ast(ast_node);
+		execute_ast(state->root_node, state);
 		if (DEBUG_MODE)
 		{
-			write(STDOUT_FILENO, "Entered: ", 9);
-			write(STDOUT_FILENO, input, ft_strlen(input));
+			ft_write("Entered: ", STDOUT_FILENO);
+			ft_write(state->input, STDOUT_FILENO);
 		}
-		free(input);
-		ft_lstclear(&list, free_list);
+		free_state(state);
 	}
+	return (0);
 }
