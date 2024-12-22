@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:12:25 by aevstign          #+#    #+#             */
-/*   Updated: 2024/12/22 13:34:35 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/22 17:55:52 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ const char		*get_token_type_name(t_token_type type);
 // printer
 void			print_node(t_ast_node *node, int depth);
 void			display_ast(t_ast_node *node, int depth);
-// lexer_utils
 
+// lexer_utils
 t_token_type	get_operator_type(char *str, int *advanced);
 t_token_type	get_char_type(char c);
 t_token			*create_token(void);
@@ -117,4 +117,5 @@ void			execute_ast(t_ast_node *node, t_state *state);
 void			builtin_pwd(void);
 void			builtin_cd(t_ast_node *node);
 void			builtin_exit(t_state *state);
+void			builtin_echo(t_ast_node *node);
 #endif
