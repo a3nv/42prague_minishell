@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_cd.c                                       :+:      :+:    :+:   */
+/*   ft_write_fd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/21 23:17:21 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/22 12:23:41 by iasonov          ###   ########.fr       */
+/*   Created: 2024/12/22 10:33:34 by iasonov           #+#    #+#             */
+/*   Updated: 2024/12/22 12:24:17 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
 
-void	builtin_cd(t_ast_node *node)
+void	ft_write(char *s, int fd)
 {
-	if (node->argc < 2)
-	{
-		ft_write("cd: missing argument\n", STDERR_FILENO);
+	if (!s)
 		return ;
-	}
-	if (node->argc > 2)
-	{
-		ft_write("cd: too many arguments\n", STDERR_FILENO);
-		return ;
-	}
-	if (chdir(node->args[1]) != 0)
-	{
-		perror("cd");
-	}
+	write(fd, s, ft_strlen(s));
 }

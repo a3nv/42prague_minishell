@@ -6,7 +6,7 @@
 #    By: iasonov <iasonov@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/22 22:56:57 by iasonov           #+#    #+#              #
-#    Updated: 2024/12/01 22:25:28 by iasonov          ###   ########.fr        #
+#    Updated: 2024/12/22 12:21:33 by iasonov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,7 @@ SRC	=	ft_atoi.c		\
 		ft_substr.c		\
 		ft_tolower.c	\
 		ft_toupper.c	\
+		ft_write_fd.c	\
 		gnl/gnl.c 		\
 		gnl/gnl_utils.c	\
 		hashmap/hashmap.c \
