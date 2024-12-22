@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 23:28:11 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/22 13:34:17 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/22 19:53:29 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	print_debug_info(void)
 		printf("Debug mode is enabled. DEBUG_MODE = %d.\n", DEBUG_MODE);
 }
 
-int	main(int argc, char *argv[])
+int	main(int argc, char **argv, char **envp)
 {
 	t_state		*state;
 
@@ -59,7 +59,7 @@ int	main(int argc, char *argv[])
 	print_debug_info();
 	while (1)
 	{
-		state = init();
+		state = init(envp);
 		ft_write("minishell$> ", STDOUT_FILENO);
 		state->input = read_input();
 		state->token_list = lexer(state->input);

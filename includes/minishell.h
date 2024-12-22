@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:12:25 by aevstign          #+#    #+#             */
-/*   Updated: 2024/12/22 17:55:52 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/22 19:57:54 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,11 @@ typedef struct s_state
 	t_list			*token_list;
 	t_ast_node		*root_node;
 	t_ast_node		*current_node;
+	char			**envp;
 }			t_state;
 
 // alloc
-t_state			*init(void);
+t_state			*init(char **envp);
 
 // gc
 void			free_list(void *content);
@@ -118,4 +119,5 @@ void			builtin_pwd(void);
 void			builtin_cd(t_ast_node *node);
 void			builtin_exit(t_state *state);
 void			builtin_echo(t_ast_node *node);
+void			builtin_env(t_state *state);
 #endif
