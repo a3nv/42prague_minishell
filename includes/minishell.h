@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:12:25 by aevstign          #+#    #+#             */
-/*   Updated: 2024/12/22 19:57:54 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/26 23:50:08 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_state			*init(char **envp);
 
 // gc
 void			free_list(void *content);
-void			free_state(t_state *state);
+void			reset_state(t_state *state);
 
 // main utils
 void			print_tokens(t_list *lexer);
@@ -120,4 +120,11 @@ void			builtin_cd(t_ast_node *node);
 void			builtin_exit(t_state *state);
 void			builtin_echo(t_ast_node *node);
 void			builtin_env(t_state *state);
+void			builtin_export(t_ast_node *node, t_state *state);
+
+// builtin_export_utils
+int				count_env_vars(char	**envp);
+void			clear_copy(char **copy);
+t_pair			*parse_arg(char *arg);
+
 #endif

@@ -23,6 +23,8 @@ SRC = src/main.c \
 	  src/executor/builtin_exit.c \
 	  src/executor/builtin_echo.c \
 	  src/executor/builtin_env.c \
+	  src/executor/builtin_export.c \
+	  src/executor/builtin_export_utils.c \
 
 OBJECTS = $(SRC:.c=.o)
 DEBUG_OBJECTS = $(SRC:.c=_debug.o)

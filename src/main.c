@@ -57,9 +57,9 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	print_debug_info();
+	state = init(envp);
 	while (1)
 	{
-		state = init(envp);
 		ft_write("minishell$> ", STDOUT_FILENO);
 		state->input = read_input();
 		state->token_list = lexer(state->input);
@@ -73,7 +73,7 @@ int	main(int argc, char **argv, char **envp)
 			ft_write("Entered: ", STDOUT_FILENO);
 			ft_write(state->input, STDOUT_FILENO);
 		}
-		free_state(state);
+		reset_state(state);
 	}
 	return (0);
 }

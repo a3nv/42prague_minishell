@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 13:04:47 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/22 13:19:51 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/26 23:52:00 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	free_ast(t_ast_node *root_node)
 	free(root_node);
 }
 
-void	free_state(t_state *state)
+void	reset_state(t_state *state)
 {
 	if (state->input)
 		free(state->input);
@@ -39,5 +39,4 @@ void	free_state(t_state *state)
 		ft_lstclear(&state->token_list, free_list);
 	if (state->root_node)
 		free_ast(state->root_node);
-	free(state);
 }

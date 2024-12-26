@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_exit.c                                     :+:      :+:    :+:   */
+/*   ft_pair.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/22 13:30:33 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/22 13:31:45 by iasonov          ###   ########.fr       */
+/*   Created: 2024/12/25 00:33:00 by iasonov           #+#    #+#             */
+/*   Updated: 2024/12/26 23:50:33 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
+#include <stdlib.h>
 
-void	builtin_exit(t_state *state)
+t_pair	*create_pair(char *first, char *second)
 {
-	reset_state(state);
-	free(state);
-	ft_write("Exiting minishell\n", STDOUT_FILENO);
-	exit(EXIT_SUCCESS);
+	t_pair	*pair;
+
+	if (!first || !second)
+		return (NULL);
+	pair = (t_pair *) malloc(sizeof(t_pair));
+	if (!pair)
+		return (NULL);
+	pair->first = first;
+	pair->second = second;
+	return (pair);
 }
