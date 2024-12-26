@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 22:49:26 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/22 12:23:52 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/25 19:19:53 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdarg.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
@@ -51,6 +52,7 @@ void		*ft_calloc(size_t count, size_t size);
 char		*ft_strdup(const char *s1);
 char		*ft_strndup(const char *src, size_t n);
 void		ft_write(char *s, int fd);
+void		ft_str_builder(char *res, size_t res_size, ...);
 
 // Part 2 - Additional functions
 char		*ft_substr(char const *s, unsigned int start, size_t len);
@@ -111,5 +113,14 @@ int			ft_hashmap_insert(t_hashmap *map,
 				const char *key, const char *value);
 char		*ft_hashmap_get(t_hashmap *map, const char *key);
 void		ft_hashmap_free(t_hashmap *map);
-#
+
+typedef struct s_pair
+{
+	void	*first;
+	void	*second;
+}	t_pair;
+
+// t_pair
+t_pair		*create_pair(char *first, char *second);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 00:40:18 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/22 20:31:49 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/25 19:17:41 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	execute_builtin(t_ast_node *node, t_state *state)
 		builtin_echo(node);
 	else if (ft_strcmp(node->args[0], "env") == 0)
 		builtin_env(state);
+	else if (ft_strcmp(node->args[0], "export") == 0)
+		builtin_export(node, state);
 }
 
 void	execute_node(t_ast_node *node, t_state *state)
