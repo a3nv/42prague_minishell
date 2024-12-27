@@ -25,6 +25,8 @@ SRC = src/main.c \
 	  src/executor/builtin_env.c \
 	  src/executor/builtin_export.c \
 	  src/executor/builtin_export_utils.c \
+	  src/executor/builtin_unset.c \
+	  src/executor/env_utils.c \
 
 OBJECTS = $(SRC:.c=.o)
 DEBUG_OBJECTS = $(SRC:.c=_debug.o)
