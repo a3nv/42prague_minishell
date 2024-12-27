@@ -6,51 +6,11 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 00:27:12 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/26 23:58:17 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/27 22:51:37 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	find_matched_key(char *key, char **envp)
-{
-	int	i;
-	int	key_len;
-
-	i = 0;
-	key_len = ft_strlen(key);
-	while (envp[i])
-	{
-		if (ft_strncmp(key, envp[i], key_len) == 0 && envp[i][key_len] == '=')
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-char	**copy_envp(char **original)
-{
-	int		count;
-	int		i;
-	char	**nenvp;
-
-	count = count_env_vars(original);
-	nenvp = malloc((count + 2) * sizeof(char *));
-	if (!nenvp)
-		return (NULL);
-	i = 0;
-	while (original[i])
-	{
-		nenvp[i] = ft_strdup(original[i]);
-		if (!nenvp[i])
-		{
-			clear_copy(nenvp);
-			return (NULL);
-		}
-		i++;
-	}
-	return (nenvp);
-}
 
 void	add_env(t_pair *pair, char ***envp)
 {

@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:12:25 by aevstign          #+#    #+#             */
-/*   Updated: 2024/12/26 23:50:08 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/27 22:51:30 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,10 +121,15 @@ void			builtin_exit(t_state *state);
 void			builtin_echo(t_ast_node *node);
 void			builtin_env(t_state *state);
 void			builtin_export(t_ast_node *node, t_state *state);
+void			builtin_unset(t_ast_node *node, t_state *state);
 
 // builtin_export_utils
 int				count_env_vars(char	**envp);
 void			clear_copy(char **copy);
+char			**copy_envp(char **original);
+
+// env utils
+int				find_matched_key(char *key, char **envp);
 t_pair			*parse_arg(char *arg);
 
 #endif
