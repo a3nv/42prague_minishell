@@ -6,7 +6,7 @@
 #    By: iasonov <iasonov@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/22 22:56:57 by iasonov           #+#    #+#              #
-#    Updated: 2024/12/25 19:22:28 by iasonov          ###   ########.fr        #
+#    Updated: 2024/12/28 23:04:04 by iasonov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,10 @@ SRC	=	ft_atoi.c		\
 		ft_pair.c	\
 		gnl/gnl.c 		\
 		gnl/gnl_utils.c	\
-		hashmap/hashmap.c \
+		hashmap/ft_hashmap.c \
+		hashmap/ft_hashmap_insert.c \
+		hashmap/ft_hashmap_iteri.c \
+		hashmap/ft_hashmap_utils.c \
 
 OBJS = $(SRC:.c=.o)
 

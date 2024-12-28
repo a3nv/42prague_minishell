@@ -6,30 +6,19 @@
 /*   By: iasonov <iasonov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:35:09 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/01 22:17:38 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/28 22:54:53 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
-
-unsigned int	hash(const char *key, size_t size)
-{
-	unsigned long int	value;
-
-	value = 0;
-	while (*key != '\0')
-	{
-		value = value * PRIME_MULTIPLIER + *key;
-		key++;
-	}
-	return (value % size);
-}
 
 t_hashmap	*ft_hashmap_create(size_t size)
 {
 	t_hashmap	*map;
 	size_t		i;
 
+	if (size == 0 || size > MAX_HASHMAP_SIZE)
+		return (NULL);
 	map = malloc(sizeof(t_hashmap));
 	if (map == NULL)
 		return (NULL);
@@ -49,59 +38,63 @@ t_hashmap	*ft_hashmap_create(size_t size)
 	return (map);
 }
 
-int	ft_hashmap_insert(t_hashmap *map, const char *key, const char *value)
+t_hashmap_entry	*ft_hashmap_get_entry(t_hashmap *map, const char *key)
 {
 	unsigned int	index;
 	t_hashmap_entry	*entry;
 
-	index = hash(key, map->size);
-	entry = malloc(sizeof(t_hashmap_entry));
-	if (entry == NULL)
-		return (-1);
-	entry->key = ft_strdup(key);
-	entry->value = ft_strdup(value);
-	entry->next = map ->entries[index];
-	map->entries[index] = entry;
-	return (0);
-}
-
-char	*ft_hashmap_get(t_hashmap *map, const char *key)
-{
-	unsigned int	index;
-	t_hashmap_entry	*entry;
-
-	index = hash(key, map->size);
+	if (!map || !key)
+		return (NULL);
+	index = ft_hash(key, map->size);
 	entry = map->entries[index];
 	while (entry != NULL)
 	{
 		if (ft_strcmp(entry->key, key) == 0)
 		{
-			return (entry->value);
+			return (entry);
 		}
 		entry = entry->next;
 	}
 	return (NULL);
 }
 
-void	ft_hashmap_free(t_hashmap *map)
+char	*ft_hashmap_get_value(t_hashmap *map, const char *key)
 {
 	t_hashmap_entry	*entry;
-	t_hashmap_entry	*temp;
-	size_t			i;
 
-	i = -1;
-	while (++i < map->size)
+	if (!map || !key)
+		return (NULL);
+	entry = ft_hashmap_get_entry(map, key);
+	if (!entry)
+		return (NULL);
+	return (entry->value);
+}
+
+void	ft_hashmap_remove(t_hashmap *map, char *key)
+{
+	int				index;
+	t_hashmap_entry	*entry;
+	t_hashmap_entry	*prev;
+
+	if (!map || !key)
+		return ;
+	prev = NULL;
+	index = ft_hash(key, map->size);
+	entry = map->entries[index];
+	while (entry)
 	{
-		entry = map->entries[i];
-		while (entry != NULL)
+		if (ft_strcmp(entry->key, key) == 0)
 		{
-			temp = entry;
-			entry = entry-> next;
-			free(temp->key);
-			free(temp->value);
-			free(temp);
+			if (prev == NULL)
+				map->entries[index] = entry->next;
+			else
+				prev->next = entry->next;
+			free(entry->key);
+			free(entry->value);
+			free(entry);
+			return ;
 		}
+		prev = entry;
+		entry = entry->next;
 	}
-	free(map->entries);
-	free(map);
 }

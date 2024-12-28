@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:12:25 by aevstign          #+#    #+#             */
-/*   Updated: 2024/12/27 22:51:30 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/28 18:41:35 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_state
 	t_ast_node		*root_node;
 	t_ast_node		*current_node;
 	char			**envp;
+	t_hashmap		*envp_map;
 }			t_state;
 
 // alloc

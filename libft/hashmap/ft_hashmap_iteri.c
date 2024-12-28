@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_export.c                                   :+:      :+:    :+:   */
+/*   hashmap_iteri.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/28 20:25:58 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/28 23:03:09 by iasonov          ###   ########.fr       */
+/*   Created: 2024/12/28 18:04:33 by iasonov           #+#    #+#             */
+/*   Updated: 2024/12/28 22:55:03 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include <stdlib.h>
+#include "../libft.h"
+#include <stddef.h>
 
-void	builtin_export(t_ast_node *node, t_state *state)
+void	ft_hashmap_iteri(t_hashmap *map, void (*f)(t_hashmap_entry *entry))
 {
-	int		i;
-	char	*arg;
-	t_pair	*pair;
+	size_t			i;
+	t_hashmap_entry	*entry;
 
-	i = 1;
-	arg = node->args[i];
-	while (arg)
+	if (!map || !map->entries || !f)
+		return ;
+	i = -1;
+	while (++i < map->size)
 	{
-		pair = parse_arg(arg);
-		ft_hashmap_insert(state->envp_map, pair->first, pair->second);
-		free(pair);
-		i++;
-		arg = node->args[i];
+		entry = map->entries[i];
+		while (entry != NULL)
+		{
+			f(entry);
+			entry = entry->next;
+		}
 	}
 }

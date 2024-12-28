@@ -8,8 +8,9 @@ LIBFT_PATH = libft/
 LIBFT_LIB = $(LIBFT_PATH)libft.a
 
 SRC = src/main.c \
-	  src/utils/alloc.c \
+	  src/utils/alloc_utils.c \
 	  src/utils/main_utils.c \
+	  src/utils/env_utils.c \
 	  src/gc/gc.c \
 	  src/printer/tree_printer.c \
 	  src/lexer/lexer.c \
@@ -24,9 +25,7 @@ SRC = src/main.c \
 	  src/executor/builtin_echo.c \
 	  src/executor/builtin_env.c \
 	  src/executor/builtin_export.c \
-	  src/executor/builtin_export_utils.c \
 	  src/executor/builtin_unset.c \
-	  src/executor/env_utils.c \
 
 OBJECTS = $(SRC:.c=.o)
 DEBUG_OBJECTS = $(SRC:.c=_debug.o)
