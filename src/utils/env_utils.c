@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 20:44:26 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/27 20:49:15 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/28 18:48:39 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,14 @@ t_pair	*parse_arg(char *arg)
 	key = ft_strndup(arg, key_index);
 	value = ft_strdup(separator_pt + 1);
 	return (create_pair(key, value));
+}
+
+int	count_env_vars(char	**envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp[i])
+		i++;
+	return (i);
 }
