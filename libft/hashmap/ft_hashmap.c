@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hashmap.c                                          :+:      :+:    :+:   */
+/*   ft_hashmap.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iasonov <iasonov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:35:09 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/28 22:54:53 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/29 22:59:37 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,13 @@ char	*ft_hashmap_get_value(t_hashmap *map, const char *key)
 	return (entry->value);
 }
 
+void	free_entry(t_hashmap_entry *entry)
+{
+	free(entry->key);
+	free(entry->value);
+	free(entry);
+}
+
 void	ft_hashmap_remove(t_hashmap *map, char *key)
 {
 	int				index;
@@ -89,9 +96,8 @@ void	ft_hashmap_remove(t_hashmap *map, char *key)
 				map->entries[index] = entry->next;
 			else
 				prev->next = entry->next;
-			free(entry->key);
-			free(entry->value);
-			free(entry);
+			free_entry(entry);
+			map->count--;
 			return ;
 		}
 		prev = entry;
