@@ -6,11 +6,12 @@
 /*   By: iasonov <iasonov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:35:09 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/28 22:54:37 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/29 22:49:04 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
+#include <stdio.h>
 
 int	ft_hashmap_replace(t_hashmap *map, const char *key, const char *value)
 {
@@ -59,6 +60,7 @@ int	ft_hashmap_insert_new(t_hashmap *map, const char *key, const char *value)
 	index = ft_hash(key, map->size);
 	entry->next = map->entries[index];
 	map->entries[index] = entry;
+	map->count++;
 	return (0);
 }
 

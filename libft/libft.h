@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 22:49:26 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/28 22:57:59 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/29 22:45:36 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,12 @@ typedef struct s_hashmap_entry
 	struct s_hashmap_entry	*next;
 }	t_hashmap_entry;
 
+// todo: once dynamic resize is implemented remove count and use size
 typedef struct s_hashmap
 {
 	t_hashmap_entry	**entries;
 	size_t			size;
+	size_t			count;
 }	t_hashmap;
 
 t_hashmap		*ft_hashmap_create(size_t size);
