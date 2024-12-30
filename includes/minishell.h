@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:12:25 by aevstign          #+#    #+#             */
-/*   Updated: 2024/12/28 18:41:35 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/30 20:22:46 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <limits.h>
+# include <signal.h>
 # include "../libft/libft.h"
 
 # define MAX_TOKENS 100
@@ -132,5 +133,8 @@ char			**copy_envp(char **original);
 // env utils
 int				find_matched_key(char *key, char **envp);
 t_pair			*parse_arg(char *arg);
+
+// signals
+void			register_signals(void);
 
 #endif
