@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_cd.c                                       :+:      :+:    :+:   */
+/*   builtin_grep.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/21 23:17:21 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/31 12:20:46 by iasonov          ###   ########.fr       */
+/*   Created: 2024/12/31 12:24:27 by iasonov           #+#    #+#             */
+/*   Updated: 2024/12/31 13:31:44 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	builtin_cd(t_ast_node *node)
+void	builtin_grep(t_ast_node *node)
 {
-	if (node->argc < 2)
+	char	*line;
+
+	if (!node || !node->args[1])
 	{
-		ft_write("cd: missing argument\n", STDERR_FILENO);
-		return ;
+		ft_write("grep: missing pattern\n", STDOUT_FILENO);
 	}
-	if (node->argc > 2)
+	line = get_next_line(STDIN_FILENO);
+	while (line)
 	{
-		ft_write("cd: too many arguments\n", STDERR_FILENO);
-		return ;
-	}
-	if (chdir(node->args[1]) != 0)
-	{
-		perror("cd");
+		if (ft_strnstr(line, node->args[1], ft_strlen(line)))
+			ft_write(line, STDOUT_FILENO);
+		free(line);
+		line = get_next_line(STDIN_FILENO);
 	}
 }

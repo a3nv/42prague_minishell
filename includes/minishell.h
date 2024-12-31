@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:12:25 by aevstign          #+#    #+#             */
-/*   Updated: 2024/12/30 20:22:46 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/31 13:37:04 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include <stdbool.h>
 # include <limits.h>
 # include <signal.h>
+# include <stddef.h>
+# include <stdlib.h>
+# include <sys/wait.h>
 # include "../libft/libft.h"
 
 # define MAX_TOKENS 100
@@ -124,6 +127,9 @@ void			builtin_echo(t_ast_node *node);
 void			builtin_env(t_state *state);
 void			builtin_export(t_ast_node *node, t_state *state);
 void			builtin_unset(t_ast_node *node, t_state *state);
+void			builtin_grep(t_ast_node *node);
+void			builtin_wc(void);
+void			execute_pipe(t_ast_node *node, t_state *state);
 
 // builtin_export_utils
 int				count_env_vars(char	**envp);
