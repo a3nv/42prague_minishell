@@ -8,6 +8,22 @@ When updating codecov.yml do not forget to validate it!
 curl -X POST --data-binary @codecov.yml https://codecov.io/validate
 ```
 
+## Criterion test framework
+```bash
+sudo apt-get update
+sudo apt-get install -y criterion-dev
+
+brew install criterion
+```
+## Docker
+
+```bash
+docker build -t minishell-image .
+docker run -it --rm -v /path/to/your/project:/app minishell-image
+docker run -it -v /path/to/your/project:/app --name minishell-container minishell-image
+docker start -ai minishell-container
+```
+
 ## Generate coverage locally
 
 ```bash
@@ -35,148 +51,8 @@ make clean                                                      # Clean up
 - [x] ~parse tokens into a strucutre called smth like command~;
 - [ ] handle validation while parsing;
 
-#### Examples
-
-`cat file.txt | grep foo | wc -l > output.txt`
-
-```yaml
-PIPE Node
-    ├── Left:
-        PIPE Node
-            ├── Left:
-                COMMAND Node:
-                    ├── Argument: cat
-                    ├── Argument: file.txt
-            └── Right:
-                COMMAND Node:
-                    ├── Argument: grep
-                    ├── Argument: foo
-    └── Right:
-        REDIRECT OUT Node
-            ├── Left:
-                COMMAND Node:
-                    ├── Argument: wc
-                    ├── Argument: -l
-            └── Right:
-                COMMAND Node:
-                    ├── Argument: output.txt
-```
-
-`ls -l | grep foo > output.txt`
-```yaml
-PIPE Node
-    ├── Left:
-        COMMAND Node:
-            ├── Argument: ls
-            ├── Argument: -l
-    └── Right:
-        REDIRECT OUT Node
-            ├── Left:
-                COMMAND Node:
-                    ├── Argument: grep
-                    ├── Argument: foo
-            └── Right:
-                COMMAND Node:
-                    ├── Argument: output.txt
-
-```
-
-`cat file | grep foo | wc`
-```yaml
-PIPE Node
-    ├── Left:
-        PIPE Node
-            ├── Left:
-                COMMAND Node:
-                    ├── Argument: cat
-            └── Right:
-                COMMAND Node:
-                    ├── Argument: grep
-                    ├── Argument: foo
-    └── Right:
-        COMMAND Node:
-            ├── Argument: wc
-```
-
-`cat file.txt`
-```yaml
-COMMAND Node:
-    ├── Argument: cat
-    ├── Argument: file.txt
-
-```
-
-- [ ] this example gives different result after parsing
-`cat file.txt | grep foo | wc -l | sort | uniq -c > output.txt`
-```yaml
-REDIRECT OUT Node
-    ├── Left:
-        PIPE Node
-            ├── Left:
-                PIPE Node
-                    ├── Left:
-                        PIPE Node
-                            ├── Left:
-                                COMMAND Node:
-                                    ├── Argument: cat
-                                    ├── Argument: file.txt
-                            └── Right:
-                                COMMAND Node:
-                                    ├── Argument: grep
-                                    ├── Argument: foo
-                    └── Right:
-                        COMMAND Node:
-                            ├── Argument: wc
-                            ├── Argument: -l
-            └── Right:
-                COMMAND Node:
-                    ├── Argument: sort
-    └── Right:
-        COMMAND Node:
-            ├── Argument: uniq
-            ├── Argument: -c
-    └── Right:
-        COMMAND Node:
-            ├── Argument: output.txt
-
-```
 ### Expander
-
 ### Executor
-cat file.txt | grep foo | wc -l > output.txt
-Expected tree
-```yaml
-REDIRECT OUT Node
-    ├── Left:
-        PIPE Node
-            ├── Left:
-                PIPE Node
-                    ├── Left:
-                        COMMAND Node:
-                            ├── Argument: cat
-                            ├── Argument: file.txt
-                    └── Right:
-                        COMMAND Node:
-                            ├── Argument: grep
-                            ├── Argument: foo
-            └── Right:
-                COMMAND Node:
-                    ├── Argument: wc
-                    ├── Argument: -l
-    └── Right:
-        COMMAND Node:
-            ├── Argument: output.txt
-```
-Expected tree traversal
-```bash
-Executing command: cat file.txt
-Executing command: grep foo
-Executing pipe
-Executing command: wc -l
-Executing command: output.txt
-Executing redir
-Executing pipe
-```
 
 ## Notes
 

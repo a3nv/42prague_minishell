@@ -13,7 +13,8 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Install dependencies
-      run: sudo apt-get update && sudo apt-get install -y build-essential cmake valgrind lcov python3 python3-pip python3-setuptools pipx
+      run: sudo apt-get update && sudo apt-get install -y build-essential cmake valgrind lcov python3 python3-pip python3-setuptools pipx libcriterion-dev
+
     - name: Upgrade pip and setuptools
       run: |
          python3 -m pip install --upgrade pip setuptools
@@ -22,10 +23,14 @@ jobs:
          python3 -m pip install norminette
     - name: Run norminette
       run: make norm
+    - name: Clean Build
+      run: make clean
     - name: Build
       run: make
     - name: Run Unit Tests
-      run: make test || ./test/test_suite
+      run: make -C test
+    - name: Run Unit Tests
+      run: make -C test run
     - name: Debug Directory Content
       run: |
         echo "Current directory: $(pwd)"
@@ -37,19 +42,27 @@ jobs:
       run: |
         echo "Checking for .gcda files:"
         find . -name "*.gcda" || echo "No .gcda files found!"
-    - name: Run test
-      run: make run_test
+#    - name: Clean Coverage Files
+#      run: find . -name "*.gcda" -o -name "*.gcno" -delete
+#    - name: Build Tests
+#      run: make -C test
+    - name: Debug Coverage Files
+      run: |
+        echo "Checking for .gcda files in test/build:"
+        find test/build -name "*.gcda"
+        echo "Checking for .gcno files in test/build:"
+        find test/build -name "*.gcno"
     - name: Generate Coverage Report
-      run: lcov --capture --directory test --output-file coverage.info
-
+      run: |
+        lcov --capture \
+             --directory test/build \
+             --output-file coverage.info \
+             --ignore-errors mismatch \
+             --ignore-errors gcov \
+             --ignore-errors empty \
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v5
       with:
         files: coverage.info
         token: ${{ secrets.CODECOV_TOKEN }}
-    # - name: norm
-    #   run: make norm
-    # - name: make check
-    #   run: make check
-    # - name: make distcheck
-    #   run: make distcheck
+
