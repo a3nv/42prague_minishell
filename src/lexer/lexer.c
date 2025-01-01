@@ -71,6 +71,8 @@ t_list	*lexer(char *input)
 	t_token	*token;
 	int		i;
 
+	if (!input)
+		return (NULL);
 	i = 0;
 	lexer = NULL;
 	while (input[i])

@@ -8,5 +8,6 @@ RUN apt-get update && apt-get install -y \
     make \
     vim \
     git \
+	libcriterion-dev \ 
     && apt-get clean
 WORKDIR /app
