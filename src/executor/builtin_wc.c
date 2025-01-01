@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_cd.c                                       :+:      :+:    :+:   */
+/*   builtin_wc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/21 23:17:21 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/31 12:20:46 by iasonov          ###   ########.fr       */
+/*   Created: 2024/12/31 12:54:49 by iasonov           #+#    #+#             */
+/*   Updated: 2024/12/31 13:07:42 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+#include <stddef.h>
 
-void	builtin_cd(t_ast_node *node)
+void	builtin_wc(void)
 {
-	if (node->argc < 2)
+	char	*line;
+	int		line_count;
+
+	line_count = 0;
+	line = get_next_line(STDIN_FILENO);
+	while (line)
 	{
-		ft_write("cd: missing argument\n", STDERR_FILENO);
-		return ;
+		line_count++;
+		free(line);
+		line = get_next_line(STDIN_FILENO);
 	}
-	if (node->argc > 2)
-	{
-		ft_write("cd: too many arguments\n", STDERR_FILENO);
-		return ;
-	}
-	if (chdir(node->args[1]) != 0)
-	{
-		perror("cd");
-	}
+	ft_putnbr_fd(line_count, STDOUT_FILENO);
+	ft_write("\n", STDOUT_FILENO);
 }

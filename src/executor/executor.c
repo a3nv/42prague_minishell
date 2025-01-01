@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 00:40:18 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/27 22:09:31 by iasonov          ###   ########.fr       */
+/*   Updated: 2024/12/31 13:31:28 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ void	execute_builtin(t_ast_node *node, t_state *state)
 		builtin_export(node, state);
 	else if (ft_strcmp(node->args[0], "unset") == 0)
 		builtin_unset(node, state);
+	else if (ft_strcmp(node->args[0], "grep") == 0)
+		builtin_grep(node);
+	else if (ft_strcmp(node->args[0], "wc") == 0)
+		builtin_wc();
 }
 
 void	execute_node(t_ast_node *node, t_state *state)
@@ -36,7 +40,7 @@ void	execute_node(t_ast_node *node, t_state *state)
 	if (node->type == NODE_COMMAND)
 		execute_builtin(node, state);
 	else if (node->type == NODE_PIPE)
-		printf("Executing pipe\n");
+		execute_pipe(node, state);
 	else if (node->type == NODE_REDIRECTION)
 		printf("Executing redir \n");
 	else
@@ -47,8 +51,5 @@ void	execute_ast(t_ast_node *node, t_state *state)
 {
 	if (!node)
 		return ;
-	execute_ast(node->left, state);
-	execute_ast(node->right, state);
 	execute_node(node, state);
-	return ;
 }

@@ -21,7 +21,7 @@ char	*read_input(void)
 	input = get_next_line(STDIN_FILENO);
 	if (input == NULL)
 	{
-		printf("\nExiting shell...\n");
+		printf("\nExiting minishell...\n");
 		exit(EXIT_FAILURE);
 	}
 	return (input);
