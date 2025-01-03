@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 20:25:58 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/29 22:49:37 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/01/02 20:28:35 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,5 @@ void	builtin_export(t_ast_node *node, t_state *state)
 		i++;
 		arg = node->args[i];
 	}
+	update_envp(state);
 }

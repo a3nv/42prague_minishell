@@ -11,7 +11,7 @@ curl -X POST --data-binary @codecov.yml https://codecov.io/validate
 ## Criterion test framework
 ```bash
 sudo apt-get update
-sudo apt-get install -y criterion-dev
+sudo apt-get install -y libcriterion-dev
 
 brew install criterion
 ```

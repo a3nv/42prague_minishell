@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:12:25 by aevstign          #+#    #+#             */
-/*   Updated: 2024/12/31 13:37:04 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/01/03 19:24:14 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,14 @@ typedef struct s_state
 	t_ast_node		*root_node;
 	t_ast_node		*current_node;
 	char			**envp;
+	int				is_envp_dynamic;
+	int				last_exit_code;
 	t_hashmap		*envp_map;
 }			t_state;
 
 // alloc
 t_state			*init(char **envp);
+void			update_envp(t_state *state);
 
 // gc
 void			free_list(void *content);
@@ -142,5 +145,21 @@ t_pair			*parse_arg(char *arg);
 
 // signals
 void			register_signals(void);
+
+// executor_utils
+int				is_builtin(t_ast_node *node);
+
+// binary utils
+void			free_dirs(char **dirs);
+
+// binary
+char			*check_path(char *command, t_hashmap *map);
+void			execute_binary(t_ast_node *node, t_state *state);
+
+// envp utils
+void			free_envp(t_state *state);
+void			copy_from_list(char **nenvp, t_hashmap_entry *entry, size_t *i);
+char			**generate_envp_from_map(t_hashmap *map);
+void			update_envp(t_state *state);
 
 #endif

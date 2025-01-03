@@ -10,7 +10,10 @@ LIBFT_LIB = $(LIBFT_PATH)libft.a
 SRC = src/main.c \
 	  src/utils/alloc_utils.c \
 	  src/utils/main_utils.c \
+	  src/utils/binary_utils.c \
 	  src/utils/env_utils.c \
+	  src/utils/envp_utils.c \
+	  src/utils/executor_utils.c \
 	  src/gc/gc.c \
 	  src/printer/tree_printer.c \
 	  src/lexer/lexer.c \
@@ -29,6 +32,7 @@ SRC = src/main.c \
 	  src/executor/builtin_grep.c \
 	  src/executor/builtin_wc.c \
 	  src/executor/pipe.c \
+	  src/executor/binary.c \
 	  src/signal/signal.c \
 
 OBJECTS = $(SRC:.c=.o)
