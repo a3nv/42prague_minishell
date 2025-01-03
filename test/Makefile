@@ -10,11 +10,19 @@ LIBFT_PATH = ../libft/
 LIBFT_LIB = $(LIBFT_PATH)libft.a
 
 SRCS = ../src/utils/main_utils.c \
+	   ../src/utils/executor_utils.c \
+	   ../src/utils/binary_utils.c \
+	   ../src/utils/envp_utils.c \
       ../src/gc/gc.c \
       ../src/lexer/lexer.c \
 	  ../src/lexer/lexer_utils.c \
+	  ../src/executor/binary.c \
 
 TESTS = unit/test_lexer.c \
+		unit/test_executor_utils.c \
+		unit/test_binary.c \
+
+# unit/test_envp_utils.c \
 
 all: $(LIBFT_LIB) test
 
@@ -26,7 +34,8 @@ test: $(TESTS) $(LIBFT_LIB)
 	$(CC) $(CFLAGS) $(SRCS) $(TESTS) -o $(OUTPUT) $(LIBFT_LIB) $(LDFLAG)
 
 run: test
-	$(OUTPUT) --verbose
+#	$(OUTPUT) --verbose
+	$(OUTPUT) 
 
 clean:
 	rm -rf $(BUILD_DIR)

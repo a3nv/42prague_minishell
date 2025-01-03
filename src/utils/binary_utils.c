@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_unset.c                                    :+:      :+:    :+:   */
+/*   binary_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/27 20:43:25 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/02 20:28:21 by iasonov          ###   ########.fr       */
+/*   Created: 2025/01/02 16:34:56 by iasonov           #+#    #+#             */
+/*   Updated: 2025/01/02 22:51:40 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include <stdio.h>
+#include <stdlib.h>
 
-void	builtin_unset(t_ast_node *node, t_state *state)
+void	free_dirs(char **dirs)
 {
-	int		i;
-	char	*arg;
+	int	i;
 
-	i = 1;
-	arg = node->args[i];
-	while (arg)
-	{
-		ft_hashmap_remove(state->envp_map, arg);
-		i++;
-		arg = node->args[i];
-	}
-	update_envp(state);
+	i = 0;
+	while (dirs[i])
+		free(dirs[i++]);
+	free(dirs);
 }

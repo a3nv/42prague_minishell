@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 00:40:18 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/31 13:31:28 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/01/03 18:36:13 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,21 @@ void	execute_builtin(t_ast_node *node, t_state *state)
 		builtin_wc();
 }
 
-void	execute_node(t_ast_node *node, t_state *state)
+void	execute_ast(t_ast_node *node, t_state *state)
 {
+	if (!node)
+		return ;
 	if (node->type == NODE_COMMAND)
-		execute_builtin(node, state);
+	{
+		if (is_builtin(node))
+			execute_builtin(node, state);
+		else
+			execute_binary(node, state);
+	}
 	else if (node->type == NODE_PIPE)
 		execute_pipe(node, state);
 	else if (node->type == NODE_REDIRECTION)
 		printf("Executing redir \n");
 	else
 		printf("Unknown command type %d", node->type);
-}
-
-void	execute_ast(t_ast_node *node, t_state *state)
-{
-	if (!node)
-		return ;
-	execute_node(node, state);
 }
