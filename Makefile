@@ -1,5 +1,5 @@
-NAME = minishell
-DEBUG_NAME = minishell_debug
+NAME = bin/minishell
+DEBUG_NAME = bin/minishell_debug
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g -Iincludes -Ilibft
@@ -34,21 +34,27 @@ SRC = src/main.c \
 	  src/executor/binary.c \
 	  src/signal/signal.c \
 
-OBJECTS = $(SRC:.c=.o)
-DEBUG_OBJECTS = $(SRC:.c=_debug.o)
+BUILD_DIR = build
+BIN_DIR = bin
+OBJECTS = $(addprefix $(BUILD_DIR)/, $(SRC:.c=.o))
+DEBUG_OBJECTS = $(addprefix $(BUILD_DIR)/, $(SRC:.c=_debug.o))
 
 all: $(LIBFT_LIB) $(NAME)
 
-.c.o:
+$(BUILD_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-%_debug.o: %.c
+$(BUILD_DIR)/%_debug.o: %.c
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(DEBUG_FLAGS) -c $< -o $@
 
 $(NAME): $(OBJECTS)
+	@mkdir -p $(BIN_DIR)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS) $(LIBFT_LIB)
 
 debug: $(LIBFT_LIB) $(DEBUG_OBJECTS)
+	@mkdir -p $(BIN_DIR)
 	$(CC) $(CFLAGS) $(DEBUG_FLAGS) -o $(DEBUG_NAME) $(DEBUG_OBJECTS) $(LIBFT_LIB)
 
 $(OBJECTS): includes/minishell.h
@@ -59,16 +65,16 @@ $(LIBFT_LIB):
 test:
 	make -C test
 
-run_test:
+test_run:
 	make -C test run
 
 clean:
-	rm -f $(OBJECTS) $(DEBUG_OBJECTS)
+	rm -rf $(BUILD_DIR)
 	make clean -C $(LIBFT_PATH)
 	make clean -C test
 
 fclean: clean
-	rm -f $(NAME) $(DEBUG_NAME)
+	rm -rf $(BIN_DIR)
 	make fclean -C $(LIBFT_PATH)
 
 re: fclean all
@@ -77,4 +83,4 @@ re: fclean all
 norm:
 	norminette $(SRC) includes/minishell.h $(LIBFT_PATH)*.h $(LIBFT_PATH)*.c $(LIBFT_PATH)gnl/*.c $(LIBFT_PATH)hashmap/*.c
 
-.PHONY: all fclean clean re norm test run_tes
+.PHONY: all fclean clean re norm test test_run

@@ -68,8 +68,6 @@ SRC	=	ft_atoi.c		\
 		arraylist/ft_array_list_get.c \
 		arraylist/ft_array_list_remove.c \
 
-OBJS = $(SRC:.c=.o)
-
 BONUS =	ft_lstadd_back_bonus.c	\
 		ft_lstadd_front_bonus.c	\
 		ft_lstclear_bonus.c		\
@@ -80,29 +78,28 @@ BONUS =	ft_lstadd_back_bonus.c	\
 		ft_lstnew_bonus.c		\
 		ft_lstsize_bonus.c		\
 
-BONUS_OBJS = $(BONUS:.c=.o)
-
-OBJ		= $(SRC:.c=.o)
+BUILD_DIR = build
+OBJ		= $(addprefix $(BUILD_DIR)/, $(SRC:.c=.o))
+BONUS_OBJS = $(addprefix $(BUILD_DIR)/, $(BONUS:.c=.o))
 
 all: $(NAME)
 
-$(NAME):$(OBJ)
-	$(AR) $(NAME) $(OBJ)
-
-%.o: %.c $(HEADER)
+$(BUILD_DIR)/%.o: %.c $(HEADER)
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-bonus: $(NAME)
+$(NAME): $(OBJ)
+	$(AR) $(NAME) $(OBJ)
+
+bonus: $(OBJ) $(BONUS_OBJS)
+	$(AR) $(NAME) $(OBJ) $(BONUS_OBJS)
 
 clean:
-	rm -f $(OBJS) $(BONUS_OBJS)
+	rm -rf $(BUILD_DIR)
 
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
 
-bonus: $(OBJS) $(BONUS_OBJS)
-	$(AR) $(NAME) $(OBJS)  $(BONUS_OBJS)
-
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus

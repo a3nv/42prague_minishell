@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 22:49:26 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/05 18:15:15 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/01/05 22:05:39 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,6 @@ typedef struct s_pair
 // t_pair
 t_pair			*create_pair(char *first, char *second);
 void			free_pair(t_pair *pair);
-
 
 // array list
 typedef struct s_array_list

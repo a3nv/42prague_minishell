@@ -6,13 +6,11 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 22:42:50 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/05 18:03:50 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/01/05 21:59:40 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
-#include <stddef.h>
-#include <stdlib.h>
 
 void	array_list_free(t_array_list *list)
 {
@@ -33,7 +31,7 @@ int	find_matched_key(char *key, char **envp)
 	int	i;
 	int	key_len;
 
-	if (!key || !*key)
+	if (!key || !*key || !envp)
 		return (-1);
 	i = 0;
 	key_len = ft_strlen(key);

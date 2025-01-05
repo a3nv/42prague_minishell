@@ -6,11 +6,12 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 16:33:45 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/05 18:19:56 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/01/05 21:58:51 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+#include <stdio.h>
 
 void	compose_path(char *buffer, char *dir, char *command)
 {

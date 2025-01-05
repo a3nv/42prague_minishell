@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 13:01:18 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/05 18:06:18 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/01/05 22:05:22 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,4 @@ t_state	*init(char **envp)
 		ft_write("No environment varaibles found\n", STDOUT_FILENO);
 	init_list_with_env(envp, state, env_count);
 	return (state);
-
 }
