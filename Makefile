@@ -12,7 +12,6 @@ SRC = src/main.c \
 	  src/utils/main_utils.c \
 	  src/utils/binary_utils.c \
 	  src/utils/env_utils.c \
-	  src/utils/envp_utils.c \
 	  src/utils/executor_utils.c \
 	  src/gc/gc.c \
 	  src/printer/tree_printer.c \

@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 16:33:45 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/03 21:11:55 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/01/05 18:19:56 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	compose_path(char *buffer, char *dir, char *command)
 	ft_str_builder(buffer, total_size, dir, backslash, command, NULL);
 }
 
-char	*check_path(char *command, t_hashmap *map)
+char	*check_path(char *command, t_array_list *list)
 {
 	char	*path;
 	char	**dirs;
@@ -35,7 +35,7 @@ char	*check_path(char *command, t_hashmap *map)
 	char	*full_path;
 	char	buffer[1024];
 
-	path = ft_hashmap_get_value(map, "PATH");
+	path = array_list_get_env_value(list, "PATH");
 	if (!path)
 		return (NULL);
 	dirs = ft_split(path, ':');
@@ -55,7 +55,7 @@ char	*check_path(char *command, t_hashmap *map)
 	return (NULL);
 }
 
-char	*find_binary_path(char *command, t_hashmap *map)
+char	*find_binary_path(char *command, t_array_list *list)
 {
 	if (!command || !*command)
 		return (NULL);
@@ -67,7 +67,7 @@ char	*find_binary_path(char *command, t_hashmap *map)
 			return (NULL);
 	}
 	else
-		return (check_path(command, map));
+		return (check_path(command, list));
 }
 
 void	spawn_binary(char *binary_path, t_ast_node *node, t_state *state)
@@ -83,7 +83,7 @@ void	spawn_binary(char *binary_path, t_ast_node *node, t_state *state)
 	}
 	else if (pid == 0)
 	{
-		if (execve(binary_path, node->args, state->envp) < 0)
+		if (execve(binary_path, node->args, state->envp_list->data) < 0)
 		{
 			perror("execve");
 			exit(EXIT_FAILURE);
@@ -101,7 +101,7 @@ void	execute_binary(t_ast_node *node, t_state *state)
 {
 	char	*binary_path;
 
-	binary_path = find_binary_path(node->args[0], state->envp_map);
+	binary_path = find_binary_path(node->args[0], state->envp_list);
 	if (!binary_path)
 	{
 		ft_write(node->args[0], STDOUT_FILENO);

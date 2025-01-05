@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   array_list_remove.c                                :+:      :+:    :+:   */
+/*   ft_array_list_remove.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 22:42:50 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/05 15:29:19 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/01/05 18:03:50 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-void	array_list_free(array_list *list)
+void	array_list_free(t_array_list *list)
 {
 	int	i;
 
@@ -46,7 +46,7 @@ int	find_matched_key(char *key, char **envp)
 	return (-1);
 }
 
-void	array_list_remove(array_list *list, char *element)
+void	array_list_remove(t_array_list *list, char *element)
 {
 	int	match;
 	int	i;

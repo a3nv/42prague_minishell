@@ -6,7 +6,7 @@
 #    By: iasonov <iasonov@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/22 22:56:57 by iasonov           #+#    #+#              #
-#    Updated: 2025/01/04 23:02:14 by iasonov          ###   ########.fr        #
+#    Updated: 2025/01/05 18:25:12 by iasonov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,9 +63,10 @@ SRC	=	ft_atoi.c		\
 		hashmap/ft_hashmap_insert.c \
 		hashmap/ft_hashmap_iteri.c \
 		hashmap/ft_hashmap_utils.c \
-		arraylist/array_list_add.c \
-		arraylist/array_list_create.c \
-		arraylist/array_list_remove.c \
+		arraylist/ft_array_list_add.c \
+		arraylist/ft_array_list_create.c \
+		arraylist/ft_array_list_get.c \
+		arraylist/ft_array_list_remove.c \
 
 OBJS = $(SRC:.c=.o)
 

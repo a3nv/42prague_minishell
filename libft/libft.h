@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 22:49:26 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/05 15:17:16 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/01/05 18:15:15 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,8 @@ typedef struct s_pair
 
 // t_pair
 t_pair			*create_pair(char *first, char *second);
+void			free_pair(t_pair *pair);
+
 
 // array list
 typedef struct s_array_list
@@ -145,14 +147,14 @@ typedef struct s_array_list
 	char	**data;
 	int		size;
 	int		capacity;
-}	array_list;
+}	t_array_list;
 
-int			find_matched_key(char *key, char **envp);
-array_list	*array_list_create(size_t initial_capacity);
-void		array_list_add(array_list *list, char *element);
-void		array_list_remove(array_list *list, char *element);
-char		*array_list_remove_with_index(array_list *list, int index);
-void		array_list_free(array_list *list);
-char		**get_data(array_list *list);
+int				find_matched_key(char *key, char **envp);
+t_array_list	*array_list_create(size_t initial_capacity);
+void			array_list_add(t_array_list *list, char *element);
+void			array_list_remove(t_array_list *list, char *element);
+char			*array_list_remove_with_index(t_array_list *list, int index);
+void			array_list_free(t_array_list *list);
+char			**get_data(t_array_list *list);
 
 #endif

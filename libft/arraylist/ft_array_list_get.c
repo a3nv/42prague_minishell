@@ -1,35 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pair.c                                          :+:      :+:    :+:   */
+/*   ft_array_list_get.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/25 00:33:00 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/05 18:14:52 by iasonov          ###   ########.fr       */
+/*   Created: 2025/01/05 17:30:47 by iasonov           #+#    #+#             */
+/*   Updated: 2025/01/05 18:15:46 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdlib.h>
+#include "../../includes/minishell.h"
 
-t_pair	*create_pair(char *first, char *second)
+char	*array_list_get(t_array_list *list, char *key)
 {
-	t_pair	*pair;
+	int	matched_index;
 
-	if (!first || !second)
-		return (NULL);
-	pair = (t_pair *) malloc(sizeof(t_pair));
-	if (!pair)
-		return (NULL);
-	pair->first = first;
-	pair->second = second;
-	return (pair);
+	matched_index = find_matched_key(key, list->data);
+	return (list->data[matched_index]);
 }
 
-void	free_pair(t_pair *pair)
+char	*array_list_get_env_value(t_array_list *list, char *key)
 {
-	free(pair->first);
-	free(pair->second);
-	free(pair);
+	char	*entry;
+	char	*value;
+	t_pair	*pair;
+
+	entry = array_list_get(list, key);
+	if (!entry)
+		return (NULL);
+	pair = parse_arg(entry);
+	if (!pair)
+		return (NULL);
+	value = ft_strdup(pair->second);
+	free_pair(pair);
+	return (value);
 }

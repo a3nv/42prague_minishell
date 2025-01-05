@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   array_list_get.c                                   :+:      :+:    :+:   */
+/*   ft_array_list_create.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/05 17:30:47 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/05 17:35:03 by iasonov          ###   ########.fr       */
+/*   Created: 2025/01/04 22:17:08 by iasonov           #+#    #+#             */
+/*   Updated: 2025/01/05 18:03:05 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../libft.h"
 
-char	*array_list_get(array_list *list, char *key)
+t_array_list	*array_list_create(size_t initial_capacity)
 {
-	int	matched_index;
+	t_array_list *list;
 
-	matched_index = find_matched_key(key, list->data);
-	return (list->data[matched_index]);
-}
-
-char	*array_list_get_env_value(array_list *list, char *key)
-{
-	char	*entry;
-	t_pair	*pair;
-
-	entry = array_list_get(list, key);
-	pair = parse_arg(entry);
-	return (pair->second);
+	list = malloc(sizeof(t_array_list));
+	if (!list)
+		return (NULL);
+	list->data = malloc(sizeof(char *) * initial_capacity + 1);
+	if (!list->data)
+		return (NULL);
+	list->data[initial_capacity + 1] = NULL;
+	list->size = 0;
+	list->capacity = initial_capacity;
+	return (list);
 }
