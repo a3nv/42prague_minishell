@@ -25,9 +25,9 @@ SRCS = ../src/utils/main_utils.c \
 
 TESTS = \
 		unit/test_binary.c \
-#		unit/test_lexer.c \
-#		unit/test_executor_utils.c \
-#		unit/test_array_list.c \
+		unit/test_lexer.c \
+		unit/test_executor_utils.c \
+		unit/test_array_list.c \
 
 # unit/test_envp_utils.c \
 
