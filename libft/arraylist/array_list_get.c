@@ -1,42 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_utils.c                                        :+:      :+:    :+:   */
+/*   array_list_get.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/27 20:44:26 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/05 15:17:29 by iasonov          ###   ########.fr       */
+/*   Created: 2025/01/05 17:30:47 by iasonov           #+#    #+#             */
+/*   Updated: 2025/01/05 17:35:03 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/**
- * todo: both key an value might be NULL handle this
- */
-t_pair	*parse_arg(char *arg)
+char	*array_list_get(array_list *list, char *key)
 {
-	char	*separator_pt;
-	long	key_index;
-	char	*key;
-	char	*value;
+	int	matched_index;
 
-	separator_pt = ft_strchr(arg, '=');
-	if (!separator_pt)
-		return (NULL);
-	key_index = separator_pt - arg;
-	key = ft_strndup(arg, key_index);
-	value = ft_strdup(separator_pt + 1);
-	return (create_pair(key, value));
+	matched_index = find_matched_key(key, list->data);
+	return (list->data[matched_index]);
 }
 
-int	count_env_vars(char	**envp)
+char	*array_list_get_env_value(array_list *list, char *key)
 {
-	int	i;
+	char	*entry;
+	t_pair	*pair;
 
-	i = 0;
-	while (envp[i])
-		i++;
-	return (i);
+	entry = array_list_get(list, key);
+	pair = parse_arg(entry);
+	return (pair->second);
 }

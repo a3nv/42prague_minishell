@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 13:01:18 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/03 18:35:58 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/01/05 14:40:00 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,16 @@ void	init_map_with_env(t_hashmap **map, char **envp)
 		ft_hashmap_insert(*map, pair->first, pair->second);
 		free(pair);
 	}
+}
+
+void	init_list_with_env(t_state *state, int env_count)
+{
+	int	i;
+
+	state->envp_list = array_list_create(env_count);
+	i = -1;
+	while (state->envp[++i])
+		array_list_add(state->envp_list, state->envp[i]);
 }
 
 t_state	*init(char **envp)
@@ -54,5 +64,6 @@ t_state	*init(char **envp)
 	if (!state->envp_map)
 		ft_write("Failed to create map", STDOUT_FILENO);
 	init_map_with_env(&state->envp_map, envp);
+	init_list_with_env(state, env_count);
 	return (state);
 }

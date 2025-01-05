@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:12:25 by aevstign          #+#    #+#             */
-/*   Updated: 2025/01/03 19:24:14 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/01/05 17:36:12 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,11 @@ typedef struct s_state
 	t_ast_node		*root_node;
 	t_ast_node		*current_node;
 	char			**envp;
+	int				envp_size;
 	int				is_envp_dynamic;
 	int				last_exit_code;
 	t_hashmap		*envp_map;
+	array_list		*envp_list;
 }			t_state;
 
 // alloc
@@ -140,7 +142,6 @@ void			clear_copy(char **copy);
 char			**copy_envp(char **original);
 
 // env utils
-int				find_matched_key(char *key, char **envp);
 t_pair			*parse_arg(char *arg);
 
 // signals
@@ -161,5 +162,8 @@ void			free_envp(t_state *state);
 void			copy_from_list(char **nenvp, t_hashmap_entry *entry, size_t *i);
 char			**generate_envp_from_map(t_hashmap *map);
 void			update_envp(t_state *state);
+char			*array_list_get(array_list *list, char *key);
+char			*array_list_get_env_value(array_list *list, char *key);
+
 
 #endif

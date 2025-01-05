@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 22:49:26 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/29 22:45:36 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/01/05 15:17:16 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,5 +138,21 @@ typedef struct s_pair
 
 // t_pair
 t_pair			*create_pair(char *first, char *second);
+
+// array list
+typedef struct s_array_list
+{
+	char	**data;
+	int		size;
+	int		capacity;
+}	array_list;
+
+int			find_matched_key(char *key, char **envp);
+array_list	*array_list_create(size_t initial_capacity);
+void		array_list_add(array_list *list, char *element);
+void		array_list_remove(array_list *list, char *element);
+char		*array_list_remove_with_index(array_list *list, int index);
+void		array_list_free(array_list *list);
+char		**get_data(array_list *list);
 
 #endif

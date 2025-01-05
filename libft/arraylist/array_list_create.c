@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_unset.c                                    :+:      :+:    :+:   */
+/*   array_list_create.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/27 20:43:25 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/05 15:43:18 by iasonov          ###   ########.fr       */
+/*   Created: 2025/01/04 22:17:08 by iasonov           #+#    #+#             */
+/*   Updated: 2025/01/05 14:32:31 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include <stdio.h>
+#include "../libft.h"
 
-void	builtin_unset(t_ast_node *node, t_state *state)
+array_list	*array_list_create(size_t initial_capacity)
 {
-	int		i;
+	array_list *list;
 
-	i = 0;
-	while (node->args[++i])
-		array_list_remove(state->envp_list, node->args[i]);
+	list = malloc(sizeof(array_list));
+	if (!list)
+		return (NULL);
+	list->data = malloc(sizeof(char *) * initial_capacity + 1);
+	if (!list->data)
+		return (NULL);
+	list->data[initial_capacity + 1] = NULL;
+	list->size = 0;
+	list->capacity = initial_capacity;
+	return (list);
 }

@@ -17,10 +17,14 @@ SRCS = ../src/utils/main_utils.c \
       ../src/lexer/lexer.c \
 	  ../src/lexer/lexer_utils.c \
 	  ../src/executor/binary.c \
+	  ../libft/arraylist/array_list_create.c \
+	  ../libft/arraylist/array_list_add.c \
+	  ../libft/arraylist/array_list_remove.c \
 
 TESTS = unit/test_lexer.c \
 		unit/test_executor_utils.c \
 		unit/test_binary.c \
+		unit/test_array_list.c \
 
 # unit/test_envp_utils.c \
 
@@ -34,8 +38,8 @@ test: $(TESTS) $(LIBFT_LIB)
 	$(CC) $(CFLAGS) $(SRCS) $(TESTS) -o $(OUTPUT) $(LIBFT_LIB) $(LDFLAG)
 
 run: test
-#	$(OUTPUT) --verbose
-	$(OUTPUT) 
+	$(OUTPUT) --verbose
+#	$(OUTPUT) 
 
 clean:
 	rm -rf $(BUILD_DIR)
