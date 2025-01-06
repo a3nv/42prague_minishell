@@ -6,7 +6,7 @@
 #    By: iasonov <iasonov@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/22 22:56:57 by iasonov           #+#    #+#              #
-#    Updated: 2024/12/28 23:04:04 by iasonov          ###   ########.fr        #
+#    Updated: 2025/01/05 18:25:12 by iasonov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,8 +63,10 @@ SRC	=	ft_atoi.c		\
 		hashmap/ft_hashmap_insert.c \
 		hashmap/ft_hashmap_iteri.c \
 		hashmap/ft_hashmap_utils.c \
-
-OBJS = $(SRC:.c=.o)
+		arraylist/ft_array_list_add.c \
+		arraylist/ft_array_list_create.c \
+		arraylist/ft_array_list_get.c \
+		arraylist/ft_array_list_remove.c \
 
 BONUS =	ft_lstadd_back_bonus.c	\
 		ft_lstadd_front_bonus.c	\
@@ -76,29 +78,28 @@ BONUS =	ft_lstadd_back_bonus.c	\
 		ft_lstnew_bonus.c		\
 		ft_lstsize_bonus.c		\
 
-BONUS_OBJS = $(BONUS:.c=.o)
-
-OBJ		= $(SRC:.c=.o)
+BUILD_DIR = build
+OBJ		= $(addprefix $(BUILD_DIR)/, $(SRC:.c=.o))
+BONUS_OBJS = $(addprefix $(BUILD_DIR)/, $(BONUS:.c=.o))
 
 all: $(NAME)
 
-$(NAME):$(OBJ)
-	$(AR) $(NAME) $(OBJ)
-
-%.o: %.c $(HEADER)
+$(BUILD_DIR)/%.o: %.c $(HEADER)
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-bonus: $(NAME)
+$(NAME): $(OBJ)
+	$(AR) $(NAME) $(OBJ)
+
+bonus: $(OBJ) $(BONUS_OBJS)
+	$(AR) $(NAME) $(OBJ) $(BONUS_OBJS)
 
 clean:
-	rm -f $(OBJS) $(BONUS_OBJS)
+	rm -rf $(BUILD_DIR)
 
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
 
-bonus: $(OBJS) $(BONUS_OBJS)
-	$(AR) $(NAME) $(OBJS)  $(BONUS_OBJS)
-
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
