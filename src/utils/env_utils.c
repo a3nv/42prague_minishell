@@ -6,27 +6,11 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 20:44:26 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/03 19:00:16 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/01/05 15:17:29 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	find_matched_key(char *key, char **envp)
-{
-	int	i;
-	int	key_len;
-
-	i = 0;
-	key_len = ft_strlen(key);
-	while (envp[i])
-	{
-		if (ft_strncmp(key, envp[i], key_len) == 0 && envp[i][key_len] == '=')
-			return (i);
-		i++;
-	}
-	return (-1);
-}
 
 /**
  * todo: both key an value might be NULL handle this

@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 20:25:58 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/02 20:28:35 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/01/05 22:40:00 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,23 @@
 void	builtin_export(t_ast_node *node, t_state *state)
 {
 	int		i;
-	char	*arg;
+	int		matched_index;
 	t_pair	*pair;
 
-	i = 1;
-	arg = node->args[i];
-	while (arg)
+	i = 0;
+	while (node->args[++i])
 	{
-		pair = parse_arg(arg);
-		ft_hashmap_insert(state->envp_map, pair->first, pair->second);
-		free(pair);
-		i++;
-		arg = node->args[i];
+		pair = parse_arg(node->args[i]);
+		if (!pair)
+			continue ;
+		matched_index = find_matched_key(pair->first, state->envp_list->data);
+		if (matched_index == -1)
+			array_list_add(state->envp_list, node->args[i]);
+		else
+		{
+			free(state->envp_list->data[matched_index]);
+			state->envp_list->data[matched_index] = ft_strdup(node->args[i]);
+		}
+		free_pair(pair);
 	}
-	update_envp(state);
 }

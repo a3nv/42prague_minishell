@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:12:25 by aevstign          #+#    #+#             */
-/*   Updated: 2025/01/03 19:24:14 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/01/05 18:21:27 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,12 @@ typedef struct s_state
 	t_list			*token_list;
 	t_ast_node		*root_node;
 	t_ast_node		*current_node;
-	char			**envp;
-	int				is_envp_dynamic;
+	t_array_list	*envp_list;
 	int				last_exit_code;
-	t_hashmap		*envp_map;
 }			t_state;
 
-// alloc
+// alloc_utils
 t_state			*init(char **envp);
-void			update_envp(t_state *state);
 
 // gc
 void			free_list(void *content);
@@ -140,7 +137,6 @@ void			clear_copy(char **copy);
 char			**copy_envp(char **original);
 
 // env utils
-int				find_matched_key(char *key, char **envp);
 t_pair			*parse_arg(char *arg);
 
 // signals
@@ -153,7 +149,7 @@ int				is_builtin(t_ast_node *node);
 void			free_dirs(char **dirs);
 
 // binary
-char			*check_path(char *command, t_hashmap *map);
+char			*check_path(char *command, t_array_list *list);
 void			execute_binary(t_ast_node *node, t_state *state);
 
 // envp utils
@@ -161,5 +157,7 @@ void			free_envp(t_state *state);
 void			copy_from_list(char **nenvp, t_hashmap_entry *entry, size_t *i);
 char			**generate_envp_from_map(t_hashmap *map);
 void			update_envp(t_state *state);
+char			*array_list_get(t_array_list *list, char *key);
+char			*array_list_get_env_value(t_array_list *list, char *key);
 
 #endif

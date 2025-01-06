@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 13:01:18 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/03 18:35:58 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/01/05 22:05:22 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,14 @@
  */
 #include "../../includes/minishell.h"
 
-void	init_map_with_env(t_hashmap **map, char **envp)
+void	init_list_with_env(char	**envp, t_state *state, int env_count)
 {
-	int		i;
-	t_pair	*pair;
+	int	i;
 
+	state->envp_list = array_list_create(env_count);
 	i = -1;
 	while (envp[++i])
-	{
-		pair = parse_arg(envp[i]);
-		ft_hashmap_insert(*map, pair->first, pair->second);
-		free(pair);
-	}
+		array_list_add(state->envp_list, envp[i]);
 }
 
 t_state	*init(char **envp)
@@ -45,14 +41,9 @@ t_state	*init(char **envp)
 	state->token_list = NULL;
 	state->root_node = NULL;
 	state->current_node = NULL;
-	state->envp = envp;
-	state->is_envp_dynamic = 0;
 	env_count = count_env_vars(envp);
 	if (env_count <= 0)
 		ft_write("No environment varaibles found\n", STDOUT_FILENO);
-	state->envp_map = ft_hashmap_create(env_count);
-	if (!state->envp_map)
-		ft_write("Failed to create map", STDOUT_FILENO);
-	init_map_with_env(&state->envp_map, envp);
+	init_list_with_env(envp, state, env_count);
 	return (state);
 }
