@@ -20,6 +20,7 @@ SRC = src/main.c \
 	  src/parser/parser.c \
 	  src/parser/parser_node_utils.c \
 	  src/parser/parser_utils.c \
+	  src/parser/env_expander.c \
 	  src/executor/executor.c \
 	  src/executor/builtin_pwd.c \
 	  src/executor/builtin_cd.c \
