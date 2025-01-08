@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 22:31:45 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/21 23:29:17 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/01/08 23:31:10 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	create_pipe_node(t_ast_node **root, t_ast_node **current_node,
 }
 
 void	create_redirect_node(t_ast_node **current_node, t_list **list_item,
-		t_token *token)
+		t_token *token, t_state *state)
 {
 	t_ast_node	*redirect_node;
 
@@ -48,47 +48,53 @@ void	create_redirect_node(t_ast_node **current_node, t_list **list_item,
 	if (*list_item && (*list_item)->content)
 	{
 		create_command_node(&redirect_node->right, *list_item,
-			((t_token *)(*list_item)->content));
+			((t_token *)(*list_item)->content), state);
 	}
 }
 
 void	create_command_node(t_ast_node **current_node, t_list *list_item,
-		t_token *token)
+		t_token *token, t_state *state)
 {
 	int		arg_count;
+	char	*expanded_value;
 
+	expanded_value = expand_variable(state, token->value);
 	if (*current_node)
 	{
 		arg_count = 0;
 		while ((*current_node)->args[arg_count])
 			arg_count++;
-		(*current_node)->args[arg_count] = ft_strdup(token->value);
+		(*current_node)->args[arg_count] = expanded_value;
 		(*current_node)->args[arg_count + 1] = NULL;
 		(*current_node)->argc = arg_count + 1;
 	}
 	else
-		*current_node = create_ast_node(NODE_COMMAND, token->value, list_item);
+	{
+		*current_node = create_ast_node(NODE_COMMAND, expanded_value,
+				list_item);
+		free(expanded_value);
+	}
 }
 
-t_ast_node	*parse_tokens(t_list *token_list)
+t_ast_node	*parse_tokens(t_state *state)
 {
 	t_list			*list_item;
 	t_token			*token;
 	t_ast_node		*root;
 	t_ast_node		*current_node;
 
-	list_item = token_list;
+	list_item = state->token_list;
 	current_node = NULL;
 	root = NULL;
 	while (list_item)
 	{
 		token = (t_token *)list_item->content;
 		if (token->type == TOKEN_WORD)
-			create_command_node(&current_node, list_item, token);
+			create_command_node(&current_node, list_item, token, state);
 		if (token->type == TOKEN_PIPE)
 			create_pipe_node(&root, &current_node, list_item);
 		else if (is_redirect(token->type))
-			create_redirect_node(&current_node, &list_item, token);
+			create_redirect_node(&current_node, &list_item, token, state);
 		list_item = list_item->next;
 	}
 	if (root && current_node)

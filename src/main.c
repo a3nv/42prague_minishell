@@ -27,11 +27,11 @@ char	*read_input(void)
 	return (input);
 }
 
-t_ast_node	*transform_list(t_list *list)
+t_ast_node	*transform_list(t_state *state)
 {
 	t_ast_node	*ast_node;
 
-	ast_node = parse_tokens(list);
+	ast_node = parse_tokens(state);
 	if (ast_node == NULL)
 	{
 		printf("Syntax error\n");
@@ -65,7 +65,7 @@ int	main(int argc, char **argv, char **envp)
 		state->input = read_input();
 		state->token_list = lexer(state->input);
 		print_tokens(state->token_list);
-		state->root_node = transform_list(state->token_list);
+		state->root_node = transform_list(state);
 		if (!state->root_node)
 			continue ;
 		execute_ast(state->root_node, state);
