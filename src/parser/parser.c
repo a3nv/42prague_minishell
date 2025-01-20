@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 22:31:45 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/08 23:31:10 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/01/20 23:44:29 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,26 +52,32 @@ void	create_redirect_node(t_ast_node **current_node, t_list **list_item,
 	}
 }
 
-void	create_command_node(t_ast_node **current_node, t_list *list_item,
+void	create_command_node(t_ast_node **cur, t_list *list_item,
 		t_token *token, t_state *state)
 {
 	int		arg_count;
 	char	*expanded_value;
 
-	expanded_value = expand_variable(state, token->value);
-	if (*current_node)
+	if (ft_strchr(token->value, '$'))
+	{
+		expanded_value = expand_variable(state, token->value);
+		if (!expanded_value)
+			expanded_value = ft_strdup("");
+	}
+	else
+		expanded_value = ft_strdup(token->value);
+	if (*cur)
 	{
 		arg_count = 0;
-		while ((*current_node)->args[arg_count])
+		while ((*cur)->args[arg_count])
 			arg_count++;
-		(*current_node)->args[arg_count] = expanded_value;
-		(*current_node)->args[arg_count + 1] = NULL;
-		(*current_node)->argc = arg_count + 1;
+		(*cur)->args[arg_count] = expanded_value;
+		(*cur)->args[arg_count + 1] = NULL;
+		(*cur)->argc = arg_count + 1;
 	}
 	else
 	{
-		*current_node = create_ast_node(NODE_COMMAND, expanded_value,
-				list_item);
+		*cur = create_ast_node(NODE_COMMAND, expanded_value, list_item);
 		free(expanded_value);
 	}
 }

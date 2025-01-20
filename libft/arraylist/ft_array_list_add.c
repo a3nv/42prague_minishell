@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 22:33:41 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/06 23:58:53 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/01/20 23:50:36 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 void	realloc_list(t_array_list *list)
 {
 	char	**new_data;
-	int		i;
 	int		new_capacity;
 
 	new_capacity = list->capacity * 2;
@@ -24,14 +23,8 @@ void	realloc_list(t_array_list *list)
 	if (!new_data)
 		return ;
 	ft_memcpy(new_data, list->data, list->size * sizeof(char *));
-	i = 0;
-	while (i <= new_capacity)
-	{
-		list->data[i] = NULL;
-		i++;
-	}
 
-	new_data[list->capacity] = NULL;
+	new_data[list->size] = NULL;
 	free(list->data);
 	list->data = new_data;
 	list->capacity = new_capacity;
