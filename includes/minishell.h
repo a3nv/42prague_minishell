@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:12:25 by aevstign          #+#    #+#             */
-/*   Updated: 2025/01/17 21:49:53 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/01/21 21:35:30 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef enum e_token_type
 	TOKEN_REDIR_HEREDOC,
 	TOKEN_SINGLE_QUOTE,
 	TOKEN_DOUBLE_QUOTE,
+	TOKEN_WHITESPACE,
 	TOKEN_EOF,
 	TOKEN_ERROR,
 	TOKEN_NULL,
@@ -49,6 +50,7 @@ typedef struct s_token
 	t_token_type	type;
 	int				counter;
 	char			*value;
+	int				expandable;
 }				t_token;
 
 typedef enum e_node_type
@@ -98,6 +100,7 @@ t_token_type	get_operator_type(char *str, int *advanced);
 t_token_type	get_char_type(char c);
 t_token			*create_token(void);
 void			free_token(t_token *token);
+char			*strip_quotes(char *str);
 
 // lexer
 t_list			*lexer(char *input);

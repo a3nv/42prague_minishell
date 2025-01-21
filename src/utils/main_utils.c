@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 21:56:32 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/22 13:16:34 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/01/21 21:15:56 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	print_tokens(t_list *lexer)
 	{
 		token = current->content;
 		printf("Token: \033[0;36m %-20s \033[0m |\t \
-			Type: \033[0;35m %-18s \033[0m \n",
+			Type: \033[0;35m %-18s \033[0m, expandable = %d \n",
 			token->value,
-			get_token_type_name(token->type));
+			get_token_type_name(token->type), token->expandable);
 		printf("--------------------------------------------------\n");
 		current = current->next;
 	}

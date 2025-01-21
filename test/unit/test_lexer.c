@@ -65,7 +65,7 @@ Test(lexer, quoted_string) {
 	cr_assert_not_null(list, "List should not be NULL");
 	cr_assert_eq(ft_lstsize(list), 2, "Expected list size: 2, but got %d", ft_lstsize(list));
 	cr_assert_str_eq(((t_token *)list->content)->value, "echo", "Expected first token to be 'echo', but got '%s'", ((t_token *)list->content)->value);
-	cr_assert_str_eq(((t_token *)list->next->content)->value, "\"hello world\"", "Expected second token to be '\"hello wortld\"', but got '%s'", ((t_token *)list->next->content)->value);
+	cr_assert_str_eq(((t_token *)list->next->content)->value, "hello world", "Expected second token to be 'hello wortld', but got '%s'", ((t_token *)list->next->content)->value);
 	ft_lstclear(&list, free_list);
 
 }
@@ -78,7 +78,7 @@ Test(lexer, single_quoted_string) {
 	cr_assert_not_null(list, "List should not be NULL");
 	cr_assert_eq(ft_lstsize(list), 2, "Expected list size: 2, but got %d", ft_lstsize(list));
 	cr_assert_str_eq(((t_token *)list->content)->value, "echo", "Expected first token to be 'echo', but got '%s'", ((t_token *)list->content)->value);
-	cr_assert_str_eq(((t_token *)list->next->content)->value, "'hello world'", "Expected second token to be ''hello wortld'', but got '%s'", ((t_token *)list->next->content)->value);
+	cr_assert_str_eq(((t_token *)list->next->content)->value, "hello world", "Expected second token to be 'hello wortld', but got '%s'", ((t_token *)list->next->content)->value);
 
 	ft_lstclear(&list, free_list);
 
