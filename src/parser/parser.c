@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 22:31:45 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/20 23:44:29 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/01/21 21:21:24 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	create_command_node(t_ast_node **cur, t_list *list_item,
 	int		arg_count;
 	char	*expanded_value;
 
-	if (ft_strchr(token->value, '$'))
+	if (token->expandable && ft_strchr(token->value, '$'))
 	{
 		expanded_value = expand_variable(state, token->value);
 		if (!expanded_value)

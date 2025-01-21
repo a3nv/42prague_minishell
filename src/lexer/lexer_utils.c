@@ -6,11 +6,22 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:05:25 by aevstign          #+#    #+#             */
-/*   Updated: 2024/12/07 16:40:08 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/01/21 21:45:58 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+char	*strip_quotes(char *str)
+{
+	int	len;
+
+	len = ft_strlen(str);
+	if (len >= 2 && ((str[0] == '\'' && str[len - 1] == '\'')
+			|| (str[0] == '\"' && str[len - 1] == '\"')))
+		return (ft_strndup(str + 1, len - 2));
+	return (ft_strdup(str));
+}
 
 t_token	*create_token(void)
 {
