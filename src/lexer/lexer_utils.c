@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:05:25 by aevstign          #+#    #+#             */
-/*   Updated: 2025/01/21 21:45:58 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/03 14:31:20 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ void	free_token(t_token *token)
 
 t_token_type	get_char_type(char c)
 {
+	ft_write("from lexer utils\n", STDOUT_FILENO);
+	ft_write(&c, STDOUT_FILENO);
+	ft_write("\n", STDOUT_FILENO);
 	if (c == '|')
 		return (TOKEN_PIPE);
 	if (c == '\'')
@@ -52,26 +55,36 @@ t_token_type	get_char_type(char c)
 	if (c == '"')
 		return (TOKEN_DOUBLE_QUOTE);
 	if (c == '>')
-		return (TOKEN_REDIR_OUT);
+		return (TOKEN_OUTPUT);
 	if (c == '<')
-		return (TOKEN_REDIR_IN);
+		return (TOKEN_INPUT);
 	return (TOKEN_WORD);
 }
 
-t_token_type	get_operator_type(char *str, int *advanced)
+t_token_type	get_operator_type(char *str, int *advance)
 {
 	if (!str || !str[1])
 		return (TOKEN_ERROR);
-	if (str[0] == '>' && str[1] == '>')
+	if (!ft_strncmp(str, ">>", 2))
 	{
-		*advanced = 2;
-		return (TOKEN_REDIR_APPEND);
+		*advance = 2;
+		return (TOKEN_APPEND);
 	}
-	if (str[0] == '<' && str[1] == '<')
+	else if (!ft_strncmp(str, "<<", 2))
 	{
-		*advanced = 2;
-		return (TOKEN_REDIR_HEREDOC);
+		*advance = 2;
+		return (TOKEN_HEREDOC);
 	}
-	*advanced = 1;
+	else if (*str == '>')
+	{
+		*advance = 1;
+		return (TOKEN_OUTPUT);
+	}
+	else if (*str == '<')
+	{
+		*advance = 1;
+		return (TOKEN_INPUT);
+	}
+	*advance = 1;
 	return (get_char_type(str[0]));
 }

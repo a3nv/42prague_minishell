@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:12:25 by aevstign          #+#    #+#             */
-/*   Updated: 2025/01/21 21:35:30 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/02 21:50:53 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,17 @@ typedef enum e_token_type
 {
 	TOKEN_WORD,
 	TOKEN_PIPE,
-	TOKEN_REDIR_IN,
-	TOKEN_REDIR_OUT,
-	TOKEN_REDIR_APPEND,
-	TOKEN_REDIR_HEREDOC,
+	TOKEN_INPUT,
+	TOKEN_OUTPUT,
+	TOKEN_APPEND,
+	TOKEN_HEREDOC,
 	TOKEN_SINGLE_QUOTE,
 	TOKEN_DOUBLE_QUOTE,
 	TOKEN_WHITESPACE,
 	TOKEN_EOF,
 	TOKEN_ERROR,
 	TOKEN_NULL,
+	TOKEN_UNKNOWN,
 }			t_token_type;
 
 typedef struct s_token
@@ -59,6 +60,16 @@ typedef enum e_node_type
 	NODE_PIPE,
 	NODE_REDIRECTION,
 }				t_node_type;
+
+/*
+ * append - 1 for '>>' and 0 for '>'
+ */
+typedef struct s_redirection {
+	char			*inflie;
+	char			*outfile;
+	int				append;
+	char			*heredoc_delim;
+}				t_redirection;
 
 typedef struct s_ast_node
 {
