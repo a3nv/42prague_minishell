@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 00:30:05 by aevstign          #+#    #+#             */
-/*   Updated: 2025/01/17 21:56:11 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/03 00:32:17 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	is_redirect(t_token_type type)
 {
-	return (type == TOKEN_REDIR_IN || type == TOKEN_REDIR_OUT
-		|| type == TOKEN_REDIR_APPEND || type == TOKEN_REDIR_HEREDOC);
+	return (type == TOKEN_INPUT || type == TOKEN_OUTPUT
+		|| type == TOKEN_APPEND || type == TOKEN_HEREDOC);
 }
 
 int	count_args(t_list *current)

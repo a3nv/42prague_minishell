@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:12:25 by aevstign          #+#    #+#             */
-/*   Updated: 2025/01/21 21:35:30 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/05 21:21:12 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <sys/wait.h>
+# include <stdio.h>
+# include <fcntl.h>
 # include "../libft/libft.h"
 
 # define MAX_TOKENS 100
@@ -33,16 +35,17 @@ typedef enum e_token_type
 {
 	TOKEN_WORD,
 	TOKEN_PIPE,
-	TOKEN_REDIR_IN,
-	TOKEN_REDIR_OUT,
-	TOKEN_REDIR_APPEND,
-	TOKEN_REDIR_HEREDOC,
+	TOKEN_INPUT,
+	TOKEN_OUTPUT,
+	TOKEN_APPEND,
+	TOKEN_HEREDOC,
 	TOKEN_SINGLE_QUOTE,
 	TOKEN_DOUBLE_QUOTE,
 	TOKEN_WHITESPACE,
 	TOKEN_EOF,
 	TOKEN_ERROR,
 	TOKEN_NULL,
+	TOKEN_UNKNOWN,
 }			t_token_type;
 
 typedef struct s_token
@@ -60,6 +63,20 @@ typedef enum e_node_type
 	NODE_REDIRECTION,
 }				t_node_type;
 
+/*
+ * inflie - '<'
+ * outfile - '>' and '>>'
+ * append - 1 for '>>' and 0 for '>'
+ * heredoc '<<'
+ */
+typedef struct s_redirection
+{
+	char			*infile;
+	char			*outfile;
+	int				append;
+	char			*heredoc_delim;
+}				t_redirection;
+
 typedef struct s_ast_node
 {
 	t_node_type			type;
@@ -68,6 +85,7 @@ typedef struct s_ast_node
 	int					file_type;
 	struct s_ast_node	*left;
 	struct s_ast_node	*right;
+	t_redirection		redirection;
 }				t_ast_node;
 
 typedef struct s_state
@@ -138,6 +156,9 @@ void			builtin_grep(t_ast_node *node);
 void			builtin_wc(void);
 void			execute_pipe(t_ast_node *node, t_state *state);
 
+int				handle_redirections(t_ast_node *node);
+int				handle_heredoc(t_ast_node *node);
+
 // builtin_export_utils
 int				count_env_vars(char	**envp);
 void			clear_copy(char **copy);
@@ -158,6 +179,17 @@ void			free_dirs(char **dirs);
 // binary
 char			*check_path(char *command, t_array_list *list);
 void			execute_binary(t_ast_node *node, t_state *state);
+char			*find_binary_path(char *command, t_array_list *list);
+void			spawn_binary(char *binary_path, t_ast_node *node,
+					t_state *state);
+
+// redirection utils && heredoc utils
+int				write_heredoc(char *tmp_file, char *delim);
+int				handle_heredoc(t_ast_node *node);
+int				handle_redirections(t_ast_node *node);
+int				apply_redirections(t_ast_node *node, int *saved_stdin,
+					int *saved_stdout);
+void			restore_fds(int saved_stdin, int saved_stdout);
 
 // envp utils
 void			free_envp(t_state *state);

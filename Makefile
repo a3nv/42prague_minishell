@@ -33,6 +33,8 @@ SRC = src/main.c \
 	  src/executor/builtin_wc.c \
 	  src/executor/pipe.c \
 	  src/executor/binary.c \
+	  src/executor/heredoc_utils.c \
+	  src/executor/redirection_utils.c \
 	  src/signal/signal.c \
 
 BUILD_DIR = build
