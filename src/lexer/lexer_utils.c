@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:05:25 by aevstign          #+#    #+#             */
-/*   Updated: 2025/02/03 14:31:20 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/03 16:34:50 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,6 @@ void	free_token(t_token *token)
 
 t_token_type	get_char_type(char c)
 {
-	ft_write("from lexer utils\n", STDOUT_FILENO);
-	ft_write(&c, STDOUT_FILENO);
-	ft_write("\n", STDOUT_FILENO);
 	if (c == '|')
 		return (TOKEN_PIPE);
 	if (c == '\'')

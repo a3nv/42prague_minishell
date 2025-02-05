@@ -6,15 +6,19 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 00:40:18 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/03 18:36:13 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/05 21:21:36 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include <stdio.h>
 
 void	execute_builtin(t_ast_node *node, t_state *state)
 {
+	int	saved_stdin;
+	int	saved_stdout;
+
+	if (apply_redirections(node, &saved_stdin, &saved_stdout) < 0)
+		return ;
 	if (ft_strcmp(node->args[0], "pwd") == 0)
 		builtin_pwd();
 	else if (ft_strcmp(node->args[0], "cd") == 0)
@@ -33,12 +37,58 @@ void	execute_builtin(t_ast_node *node, t_state *state)
 		builtin_grep(node);
 	else if (ft_strcmp(node->args[0], "wc") == 0)
 		builtin_wc();
+	restore_fds(saved_stdin, saved_stdout);
+}
+
+void	execute_binary(t_ast_node *node, t_state *state)
+{
+	char	*binary_path;
+	int		saved_stdin;
+	int		saved_stdout;
+
+	if (apply_redirections(node, &saved_stdin, &saved_stdout) < 0)
+		return ;
+	binary_path = find_binary_path(node->args[0], state->envp_list);
+	if (!binary_path)
+	{
+		ft_write(node->args[0], STDOUT_FILENO);
+		ft_write(": command not found\n", STDOUT_FILENO);
+		restore_fds(saved_stdin, saved_stdout);
+		return ;
+	}
+	spawn_binary(binary_path, node, state);
+	restore_fds(saved_stdin, saved_stdout);
+	free(binary_path);
+}
+
+void	execute_redirection_node(t_ast_node *node, t_state *state)
+{
+	int	saved_stdin;
+	int	saved_stdout;
+
+	saved_stdin = dup(STDIN_FILENO);
+	saved_stdout = dup(STDOUT_FILENO);
+	if (apply_redirections(node, &saved_stdin, &saved_stdout) < 0)
+	{
+		restore_fds(saved_stdin, saved_stdout);
+		return ;
+	}
+	if (node->left != NULL)
+		execute_ast(node->left, state);
+	else
+		printf("Syntax error: missing command before redirection\n");
+	restore_fds(saved_stdin, saved_stdout);
 }
 
 void	execute_ast(t_ast_node *node, t_state *state)
 {
-	if (!node)
+	if (node == NULL)
 		return ;
+	if (node->type == NODE_REDIRECTION)
+	{
+		execute_redirection_node(node, state);
+		return ;
+	}
 	if (node->type == NODE_COMMAND)
 	{
 		if (is_builtin(node))
@@ -48,8 +98,6 @@ void	execute_ast(t_ast_node *node, t_state *state)
 	}
 	else if (node->type == NODE_PIPE)
 		execute_pipe(node, state);
-	else if (node->type == NODE_REDIRECTION)
-		printf("Executing redir \n");
 	else
-		printf("Unknown command type %d", node->type);
+		printf("Unknown command type %d\n", node->type);
 }
