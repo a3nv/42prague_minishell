@@ -3,6 +3,7 @@ DEBUG_NAME = bin/minishell_debug
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g -Iincludes -Ilibft
+LDFLAGS = -lreadline
 DEBUG_FLAGS = -DDEBUG_MODE=1
 LIBFT_PATH = libft/
 LIBFT_LIB = $(LIBFT_PATH)libft.a
@@ -54,11 +55,11 @@ $(BUILD_DIR)/%_debug.o: %.c
 
 $(NAME): $(OBJECTS)
 	@mkdir -p $(BIN_DIR)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS) $(LIBFT_LIB)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS) $(LIBFT_LIB) $(LDFLAGS)
 
 debug: $(LIBFT_LIB) $(DEBUG_OBJECTS)
 	@mkdir -p $(BIN_DIR)
-	$(CC) $(CFLAGS) $(DEBUG_FLAGS) -o $(DEBUG_NAME) $(DEBUG_OBJECTS) $(LIBFT_LIB)
+	$(CC) $(CFLAGS) $(DEBUG_FLAGS) -o $(DEBUG_NAME) $(DEBUG_OBJECTS) $(LIBFT_LIB) $(LDFLAGS)
 
 $(OBJECTS): includes/minishell.h
 

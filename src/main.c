@@ -6,24 +6,23 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 23:28:11 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/17 21:51:44 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/06 21:52:19 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 char	*read_input(void)
 {
 	char	*input;
 
-	input = get_next_line(STDIN_FILENO);
+	input = readline("minishell>");
 	if (input == NULL)
 	{
 		printf("\nExiting minishell...\n");
 		exit(EXIT_FAILURE);
 	}
+	add_history(input);
 	return (input);
 }
 
@@ -61,7 +60,6 @@ int	main(int argc, char **argv, char **envp)
 	state = init(envp);
 	while (1)
 	{
-		ft_write("minishell$> ", STDOUT_FILENO);
 		state->input = read_input();
 		state->token_list = lexer(state->input);
 		print_tokens(state->token_list);
@@ -76,5 +74,6 @@ int	main(int argc, char **argv, char **envp)
 		}
 		reset_state(state);
 	}
+	clear_history();
 	return (0);
 }
