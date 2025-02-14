@@ -45,23 +45,32 @@ make clean                                                      # Clean up
 ```
 ## Todo
 
-### Structure
-- [x] move gnl files into libft;
-- [x] add hash map files into libft;
-- [x] update libft to build those files;
+- [ ] rstore signal for a child process. e.g. `grep asd` and then hit ctrl+\ should print quit and return control to the user
+- [ ] heredoc do not stop when specified deliliter is encountered
+```bash
+cat << EOF
+Line 1
+Line 2
+EOF
+```
+- [ ] >> append to not add new line
 
-### Lexer
+- [ ] validation for heredoc. Expected an 'error new unexpected token \n'
+```bash
+cat <<
+```
+- [ ] validation. Expected /etc/passwd: Permission denied
+```bash
+echo asd >> /etc/passwd
+```
 
-### Parser
-- [x] ~parse tokens into a strucutre called smth like command~;
-- [ ] handle validation while parsing;
-
-### Expander
-### Executor
-
-## Notes
-
-### Output and actions
-
-- Probably it would be better to use write function as it directly writes into the output.
-
+- [ ] validation. Expected an 'error near unexpected token >'
+```bash
+> out.txt
+```
+- [ ] validation. Syntax error
+```bash
+cat << EOF > output.txt
+Hello
+EOF
+```

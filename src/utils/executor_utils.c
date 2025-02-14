@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 22:46:03 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/02 00:44:28 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/14 21:19:14 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_builtin(t_ast_node *node)
 {
-	char	*builtin_commands[9];
+	char	*builtin_commands[7];
 	int		count;
 	int		i;
 
@@ -25,10 +25,8 @@ int	is_builtin(t_ast_node *node)
 	builtin_commands[2] = "env";
 	builtin_commands[3] = "exit";
 	builtin_commands[4] = "export";
-	builtin_commands[5] = "grep";
-	builtin_commands[6] = "pwd";
-	builtin_commands[7] = "unset";
-	builtin_commands[8] = "wc";
+	builtin_commands[5] = "pwd";
+	builtin_commands[6] = "unset";
 	count = sizeof(builtin_commands) / sizeof(builtin_commands[0]);
 	i = 0;
 	while (i < count)

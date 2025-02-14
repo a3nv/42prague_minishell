@@ -36,8 +36,6 @@ SRC = src/main.c \
 	  src/executor/builtin_env.c \
 	  src/executor/builtin_export.c \
 	  src/executor/builtin_unset.c \
-	  src/executor/builtin_grep.c \
-	  src/executor/builtin_wc.c \
 	  src/executor/pipe.c \
 	  src/executor/binary.c \
 	  src/executor/heredoc_utils.c \

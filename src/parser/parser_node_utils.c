@@ -29,27 +29,6 @@ t_ast_node	*create_node(t_token_type type)
 	return (node);
 }
 
-t_ast_node	*create_file_node(t_token *temp_token)
-{
-	t_ast_node	*node;
-
-	node = malloc(sizeof(t_ast_node));
-	if (!node)
-		return (NULL);
-	node->args = malloc(sizeof(char *) * 2);
-	if (!node->args)
-	{
-		free(node);
-		return (NULL);
-	}
-	node->args[0] = temp_token->value;
-	node->args[1] = NULL;
-	node->left = NULL;
-	node->right = NULL;
-	free(temp_token);
-	return (node);
-}
-
 t_ast_node	*allocate_node(t_node_type type)
 {
 	t_ast_node	*node;
@@ -61,6 +40,10 @@ t_ast_node	*allocate_node(t_node_type type)
 	node->left = NULL;
 	node->right = NULL;
 	node->args = NULL;
+	node->redirection.infile = NULL;
+	node->redirection.outfile = NULL;
+	node->redirection.heredoc_delim = NULL;
+	node->redirection.append = 0;
 	return (node);
 }
 

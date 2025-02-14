@@ -6,12 +6,11 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 17:30:47 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/05 21:59:30 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/14 21:35:12 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include <stdio.h>
 
 char	*array_list_get(t_array_list *list, char *key)
 {

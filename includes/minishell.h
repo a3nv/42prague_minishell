@@ -108,6 +108,7 @@ t_state			*init(char **envp);
 // gc
 void			free_list(void *content);
 void			reset_state(t_state *state);
+void			free_envp_list(t_state *state);
 
 // main utils
 void			print_tokens(t_list *lexer);
