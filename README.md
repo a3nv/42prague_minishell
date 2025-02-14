@@ -24,6 +24,11 @@ docker run -it -v /path/to/your/project:/app --name minishell-container minishel
 docker start -ai minishell-container
 ```
 
+## Valgrind
+```bash
+valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./bin/minishell
+```
+
 ## Generate coverage locally
 
 ```bash

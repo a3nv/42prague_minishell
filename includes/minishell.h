@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:12:25 by aevstign          #+#    #+#             */
-/*   Updated: 2025/02/06 21:56:57 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/14 15:05:06 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,5 +200,8 @@ char			**generate_envp_from_map(t_hashmap *map);
 void			update_envp(t_state *state);
 char			*array_list_get(t_array_list *list, char *key);
 char			*array_list_get_env_value(t_array_list *list, char *key);
+
+// validator
+void			validate_args(int argc, char **argv);
 
 #endif

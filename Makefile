@@ -8,6 +8,12 @@ DEBUG_FLAGS = -DDEBUG_MODE=1
 LIBFT_PATH = libft/
 LIBFT_LIB = $(LIBFT_PATH)libft.a
 
+ifeq ($(shell uname -s), Darwin)
+	READLINE_PREFIX := $(shell brew --prefix readline)
+	CFLAGS += -I$(READLINE_PREFIX)/include
+	LDFLAGS := -L$(READLINE_PREFIX)/lib $(LDFLAGS)
+endif
+
 SRC = src/main.c \
 	  src/utils/alloc_utils.c \
 	  src/utils/main_utils.c \
@@ -37,6 +43,7 @@ SRC = src/main.c \
 	  src/executor/heredoc_utils.c \
 	  src/executor/redirection_utils.c \
 	  src/signal/signal.c \
+	  src/validator/validator.c \
 
 BUILD_DIR = build
 BIN_DIR = bin

@@ -53,8 +53,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_state		*state;
 
-	(void)argc;
-	(void)argv;
+	validate_args(argc, argv);
 	print_debug_info();
 	register_signals();
 	state = init(envp);
