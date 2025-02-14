@@ -9,5 +9,7 @@ RUN apt-get update && apt-get install -y \
     vim \
     git \
 	libcriterion-dev \ 
+	libreadline-dev \ 
     && apt-get clean
 WORKDIR /app
+COPY . /app

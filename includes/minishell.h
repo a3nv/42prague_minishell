@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:12:25 by aevstign          #+#    #+#             */
-/*   Updated: 2025/02/05 21:21:12 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/14 15:05:06 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,16 @@
 # include <sys/wait.h>
 # include <stdio.h>
 # include <fcntl.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 # include "../libft/libft.h"
 
 # define MAX_TOKENS 100
 # ifndef DEBUG_MODE
 #  define DEBUG_MODE 0
 # endif
+
+extern volatile sig_atomic_t	g_reset_requested;
 
 typedef enum e_token_type
 {
@@ -104,6 +108,7 @@ t_state			*init(char **envp);
 // gc
 void			free_list(void *content);
 void			reset_state(t_state *state);
+void			free_envp_list(t_state *state);
 
 // main utils
 void			print_tokens(t_list *lexer);
@@ -191,12 +196,7 @@ int				apply_redirections(t_ast_node *node, int *saved_stdin,
 					int *saved_stdout);
 void			restore_fds(int saved_stdin, int saved_stdout);
 
-// envp utils
-void			free_envp(t_state *state);
-void			copy_from_list(char **nenvp, t_hashmap_entry *entry, size_t *i);
-char			**generate_envp_from_map(t_hashmap *map);
-void			update_envp(t_state *state);
-char			*array_list_get(t_array_list *list, char *key);
-char			*array_list_get_env_value(t_array_list *list, char *key);
+// validator
+void			validate_args(int argc, char **argv);
 
 #endif

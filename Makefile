@@ -3,9 +3,16 @@ DEBUG_NAME = bin/minishell_debug
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g -Iincludes -Ilibft
+LDFLAGS = -lreadline
 DEBUG_FLAGS = -DDEBUG_MODE=1
 LIBFT_PATH = libft/
 LIBFT_LIB = $(LIBFT_PATH)libft.a
+
+ifeq ($(shell uname -s), Darwin)
+	READLINE_PREFIX := $(shell brew --prefix readline)
+	CFLAGS += -I$(READLINE_PREFIX)/include
+	LDFLAGS := -L$(READLINE_PREFIX)/lib $(LDFLAGS)
+endif
 
 SRC = src/main.c \
 	  src/utils/alloc_utils.c \
@@ -29,13 +36,12 @@ SRC = src/main.c \
 	  src/executor/builtin_env.c \
 	  src/executor/builtin_export.c \
 	  src/executor/builtin_unset.c \
-	  src/executor/builtin_grep.c \
-	  src/executor/builtin_wc.c \
 	  src/executor/pipe.c \
 	  src/executor/binary.c \
 	  src/executor/heredoc_utils.c \
 	  src/executor/redirection_utils.c \
 	  src/signal/signal.c \
+	  src/validator/validator.c \
 
 BUILD_DIR = build
 BIN_DIR = bin
@@ -54,11 +60,11 @@ $(BUILD_DIR)/%_debug.o: %.c
 
 $(NAME): $(OBJECTS)
 	@mkdir -p $(BIN_DIR)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS) $(LIBFT_LIB)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS) $(LIBFT_LIB) $(LDFLAGS)
 
 debug: $(LIBFT_LIB) $(DEBUG_OBJECTS)
 	@mkdir -p $(BIN_DIR)
-	$(CC) $(CFLAGS) $(DEBUG_FLAGS) -o $(DEBUG_NAME) $(DEBUG_OBJECTS) $(LIBFT_LIB)
+	$(CC) $(CFLAGS) $(DEBUG_FLAGS) -o $(DEBUG_NAME) $(DEBUG_OBJECTS) $(LIBFT_LIB) $(LDFLAGS)
 
 $(OBJECTS): includes/minishell.h
 

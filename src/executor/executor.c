@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 00:40:18 by iasonov           #+#    #+#             */
-/*   Updated: 2025/02/05 21:21:36 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/14 21:20:05 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,6 @@ void	execute_builtin(t_ast_node *node, t_state *state)
 		builtin_export(node, state);
 	else if (ft_strcmp(node->args[0], "unset") == 0)
 		builtin_unset(node, state);
-	else if (ft_strcmp(node->args[0], "grep") == 0)
-		builtin_grep(node);
-	else if (ft_strcmp(node->args[0], "wc") == 0)
-		builtin_wc();
 	restore_fds(saved_stdin, saved_stdout);
 }
 

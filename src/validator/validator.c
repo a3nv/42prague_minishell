@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_wc.c                                       :+:      :+:    :+:   */
+/*   validator.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/31 12:54:49 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/31 13:07:42 by iasonov          ###   ########.fr       */
+/*   Created: 2025/02/14 14:59:59 by iasonov           #+#    #+#             */
+/*   Updated: 2025/02/14 22:47:29 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include <stddef.h>
 
-void	builtin_wc(void)
+void	validate_args(int argc, char **argv)
 {
-	char	*line;
-	int		line_count;
-
-	line_count = 0;
-	line = get_next_line(STDIN_FILENO);
-	while (line)
+	(void) argv;
+	if (argc != 1)
 	{
-		line_count++;
-		free(line);
-		line = get_next_line(STDIN_FILENO);
+		ft_write("Error: minishell does not accept any arguments\n",
+			STDERR_FILENO);
+		exit(EXIT_FAILURE);
 	}
-	ft_putnbr_fd(line_count, STDOUT_FILENO);
-	ft_write("\n", STDOUT_FILENO);
+	if (!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO))
+	{
+		ft_write("Error: minishell must be run interactively\n", STDERR_FILENO);
+		exit(EXIT_FAILURE);
+	}
+}
+
+void	validate_input_(char *input)
+{
+	(void) input;
 }

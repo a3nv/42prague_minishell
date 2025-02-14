@@ -6,25 +6,39 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 23:28:11 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/17 21:51:44 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/14 22:48:19 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <stdio.h>
-#include <stdlib.h>
 
-char	*read_input(void)
+volatile sig_atomic_t	g_reset_requested;
+
+char	*read_input(t_state *state)
 {
 	char	*input;
+	char	*trimmed;
 
-	input = get_next_line(STDIN_FILENO);
+	input = readline("minishell>");
 	if (input == NULL)
 	{
 		printf("\nExiting minishell...\n");
+		reset_state(state);
+		free_envp_list(state);
+		rl_clear_history();
 		exit(EXIT_FAILURE);
 	}
-	return (input);
+	trimmed = ft_strtrim(input, " \t\n");
+	free(input);
+	if (!trimmed || ft_strlen(trimmed) == 0)
+	{
+		free(trimmed);
+		return (NULL);
+	}
+	add_history(trimmed);
+	g_reset_requested = 0;
+	return (trimmed);
 }
 
 t_ast_node	*transform_list(t_state *state)
@@ -50,31 +64,36 @@ void	print_debug_info(void)
 		printf("Debug mode is enabled. DEBUG_MODE = %d.\n", DEBUG_MODE);
 }
 
+void	reset_by_request(t_state *state)
+{
+	reset_state(state);
+	g_reset_requested = 0;
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_state		*state;
 
-	(void)argc;
-	(void)argv;
+	validate_args(argc, argv);
 	print_debug_info();
 	register_signals();
 	state = init(envp);
 	while (1)
 	{
-		ft_write("minishell$> ", STDOUT_FILENO);
-		state->input = read_input();
+		state->input = read_input(state);
+		if (g_reset_requested)
+			reset_by_request(state);
+		if (!state->input)
+			continue ;
 		state->token_list = lexer(state->input);
 		print_tokens(state->token_list);
 		state->root_node = transform_list(state);
 		if (!state->root_node)
 			continue ;
 		execute_ast(state->root_node, state);
-		if (DEBUG_MODE)
-		{
-			ft_write("Entered: ", STDOUT_FILENO);
-			ft_write(state->input, STDOUT_FILENO);
-		}
 		reset_state(state);
 	}
+	free_envp_list(state);
+	rl_clear_history();
 	return (0);
 }
