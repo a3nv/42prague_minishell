@@ -33,6 +33,8 @@
 #  define DEBUG_MODE 0
 # endif
 
+extern volatile sig_atomic_t	g_reset_requested;
+
 typedef enum e_token_type
 {
 	TOKEN_WORD,
@@ -192,14 +194,6 @@ int				handle_redirections(t_ast_node *node);
 int				apply_redirections(t_ast_node *node, int *saved_stdin,
 					int *saved_stdout);
 void			restore_fds(int saved_stdin, int saved_stdout);
-
-// envp utils
-void			free_envp(t_state *state);
-void			copy_from_list(char **nenvp, t_hashmap_entry *entry, size_t *i);
-char			**generate_envp_from_map(t_hashmap *map);
-void			update_envp(t_state *state);
-char			*array_list_get(t_array_list *list, char *key);
-char			*array_list_get_env_value(t_array_list *list, char *key);
 
 // validator
 void			validate_args(int argc, char **argv);

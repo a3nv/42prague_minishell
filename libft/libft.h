@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 22:49:26 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/05 22:05:39 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/14 19:46:12 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,5 +155,7 @@ void			array_list_remove(t_array_list *list, char *element);
 char			*array_list_remove_with_index(t_array_list *list, int index);
 void			array_list_free(t_array_list *list);
 char			**get_data(t_array_list *list);
+char			*array_list_get_env_value(t_array_list *list, char *key);
+char			*array_list_get(t_array_list *list, char *key);
 
 #endif

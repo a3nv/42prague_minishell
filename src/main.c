@@ -13,6 +13,7 @@
 #include "../includes/minishell.h"
 
 char	*read_input(void)
+volatile sig_atomic_t	g_reset_requested;
 {
 	char	*input;
 
@@ -49,6 +50,12 @@ void	print_debug_info(void)
 		printf("Debug mode is enabled. DEBUG_MODE = %d.\n", DEBUG_MODE);
 }
 
+void	reset_by_request(t_state *state)
+{
+	reset_state(state);
+	g_reset_requested = 0;
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_state		*state;
@@ -60,6 +67,9 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		state->input = read_input();
+		state->input = read_input(state);
+		if (g_reset_requested)
+			reset_by_request(state);
 		state->token_list = lexer(state->input);
 		print_tokens(state->token_list);
 		state->root_node = transform_list(state);
