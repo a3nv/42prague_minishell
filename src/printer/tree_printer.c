@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 23:04:44 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/18 00:10:58 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/15 21:24:54 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/minishell.h"

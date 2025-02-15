@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 21:56:32 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/21 21:15:56 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/15 21:27:21 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,17 @@ const char	*get_token_type_name(t_token_type type)
 	return ("UNKNOWN");
 }
 
-void	print_tokens(t_list *lexer)
+t_ast_node	*transform_list(t_state *state)
 {
-	t_list	*current;
-	t_token	*token;
+	t_ast_node	*ast_node;
 
-	if (!DEBUG_MODE)
-		return ;
-	current = lexer;
-	while (current)
+	ast_node = parse_tokens(state);
+	if (ast_node == NULL)
 	{
-		token = current->content;
-		printf("Token: \033[0;36m %-20s \033[0m |\t \
-			Type: \033[0;35m %-18s \033[0m, expandable = %d \n",
-			token->value,
-			get_token_type_name(token->type), token->expandable);
-		printf("--------------------------------------------------\n");
-		current = current->next;
+		printf("Syntax error\n");
+		return (NULL);
 	}
+	if (DEBUG_MODE)
+		display_ast(ast_node, 0);
+	return (ast_node);
 }

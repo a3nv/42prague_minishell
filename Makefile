@@ -22,6 +22,7 @@ SRC = src/main.c \
 	  src/utils/executor_utils.c \
 	  src/gc/gc.c \
 	  src/printer/tree_printer.c \
+	  src/printer/main_printer.c \
 	  src/lexer/lexer.c \
 	  src/lexer/lexer_utils.c \
 	  src/parser/parser.c \

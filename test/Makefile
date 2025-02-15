@@ -15,6 +15,10 @@ SRCS = ../src/utils/main_utils.c \
 	   ../src/utils/binary_utils.c \
 	   ../src/utils/env_utils.c \
        ../src/gc/gc.c \
+       ../src/parser/parser.c \
+       ../src/parser/parser_utils.c \
+       ../src/parser/parser_node_utils.c \
+       ../src/parser/env_expander.c \
        ../src/lexer/lexer.c \
 	   ../src/lexer/lexer_utils.c \
 	   ../src/executor/binary.c \

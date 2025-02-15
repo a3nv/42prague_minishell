@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 23:28:11 by iasonov           #+#    #+#             */
-/*   Updated: 2025/02/15 19:59:13 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/15 21:27:41 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,29 +39,6 @@ char	*read_input(t_state *state)
 	add_history(trimmed);
 	g_reset_requested = 0;
 	return (trimmed);
-}
-
-t_ast_node	*transform_list(t_state *state)
-{
-	t_ast_node	*ast_node;
-
-	ast_node = parse_tokens(state);
-	if (ast_node == NULL)
-	{
-		printf("Syntax error\n");
-		return (NULL);
-	}
-	if (DEBUG_MODE)
-		display_ast(ast_node, 0);
-	return (ast_node);
-}
-
-void	print_debug_info(void)
-{
-	if (!DEBUG_MODE)
-		printf("Debug mode is disabled. DEBUG_MODE = %d.\n", DEBUG_MODE);
-	else
-		printf("Debug mode is enabled. DEBUG_MODE = %d.\n", DEBUG_MODE);
 }
 
 void	reset_by_request(t_state *state)

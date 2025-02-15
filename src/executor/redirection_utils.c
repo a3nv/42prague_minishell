@@ -6,11 +6,11 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 19:58:23 by iasonov           #+#    #+#             */
-/*   Updated: 2025/02/05 21:17:49 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/15 20:45:58 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h" 
+#include "../../includes/minishell.h"
 
 int	set_input_redirection(char *infile)
 {
@@ -39,7 +39,14 @@ int	set_output_redirection(char *outfile, int append)
 	fd = open(outfile, flags, 0644);
 	if (fd < 0)
 	{
-		perror("minishell");
+		if (errno == EACCES)
+		{
+			ft_write("minishell: ", STDERR_FILENO);
+			ft_write(outfile, STDERR_FILENO);
+			ft_write(": Permission denied\n", STDERR_FILENO);
+		}
+		else
+			perror("minishell");
 		return (-1);
 	}
 	dup2(fd, STDOUT_FILENO);
