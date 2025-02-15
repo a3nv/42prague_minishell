@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:05:25 by aevstign          #+#    #+#             */
-/*   Updated: 2025/02/03 16:34:50 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/15 19:57:44 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,24 +60,24 @@ t_token_type	get_char_type(char c)
 
 t_token_type	get_operator_type(char *str, int *advance)
 {
-	if (!str || !str[1])
+	if (!str || !str[0])
 		return (TOKEN_ERROR);
-	if (!ft_strncmp(str, ">>", 2))
+	if (str[0] == '>' && str[1] == '>')
 	{
 		*advance = 2;
 		return (TOKEN_APPEND);
 	}
-	else if (!ft_strncmp(str, "<<", 2))
+	else if (str[0] == '<' && str[1] == '<')
 	{
 		*advance = 2;
 		return (TOKEN_HEREDOC);
 	}
-	else if (*str == '>')
+	if (str[0] == '>')
 	{
 		*advance = 1;
 		return (TOKEN_OUTPUT);
 	}
-	else if (*str == '<')
+	else if (str[0] == '<')
 	{
 		*advance = 1;
 		return (TOKEN_INPUT);

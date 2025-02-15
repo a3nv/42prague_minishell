@@ -53,8 +53,7 @@ Line 1
 Line 2
 EOF
 ```
-- [ ] >> append to not add new line
-
+- [ ] '>>' append to a file does not add a new line
 - [ ] validation for heredoc. Expected an 'error new unexpected token \n'
 ```bash
 cat <<

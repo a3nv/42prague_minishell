@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:12:25 by aevstign          #+#    #+#             */
-/*   Updated: 2025/02/14 15:05:06 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/15 20:13:28 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,5 +198,10 @@ void			restore_fds(int saved_stdin, int saved_stdout);
 
 // validator
 void			validate_args(int argc, char **argv);
+int				validate_tokens(t_list *tokens);
+
+// validator list utils
+int				is_redirection(t_token *token);
+int				is_pipe(t_token *token);
 
 #endif

@@ -42,6 +42,8 @@ SRC = src/main.c \
 	  src/executor/redirection_utils.c \
 	  src/signal/signal.c \
 	  src/validator/validator.c \
+	  src/validator/validator_list.c \
+	  src/validator/validator_list_utils.c \
 
 BUILD_DIR = build
 BIN_DIR = bin
