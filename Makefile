@@ -22,6 +22,7 @@ SRC = src/main.c \
 	  src/utils/executor_utils.c \
 	  src/gc/gc.c \
 	  src/printer/tree_printer.c \
+	  src/printer/main_printer.c \
 	  src/lexer/lexer.c \
 	  src/lexer/lexer_utils.c \
 	  src/parser/parser.c \
@@ -42,6 +43,8 @@ SRC = src/main.c \
 	  src/executor/redirection_utils.c \
 	  src/signal/signal.c \
 	  src/validator/validator.c \
+	  src/validator/validator_list.c \
+	  src/validator/validator_list_utils.c \
 
 BUILD_DIR = build
 BIN_DIR = bin

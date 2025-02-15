@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:12:25 by aevstign          #+#    #+#             */
-/*   Updated: 2025/02/14 15:05:06 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/15 21:27:35 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/errno.h>
 # include "../libft/libft.h"
 
 # define MAX_TOKENS 100
@@ -113,10 +114,14 @@ void			free_envp_list(t_state *state);
 // main utils
 void			print_tokens(t_list *lexer);
 const char		*get_token_type_name(t_token_type type);
+t_ast_node		*transform_list(t_state *state);
 
-// printer
+// tree printer
 void			print_node(t_ast_node *node, int depth);
 void			display_ast(t_ast_node *node, int depth);
+
+// main printer
+void			print_debug_info(void);
 
 // lexer_utils
 t_token_type	get_operator_type(char *str, int *advanced);
@@ -198,5 +203,10 @@ void			restore_fds(int saved_stdin, int saved_stdout);
 
 // validator
 void			validate_args(int argc, char **argv);
+int				validate_tokens(t_list *tokens);
+
+// validator list utils
+int				is_redirection(t_token *token);
+int				is_pipe(t_token *token);
 
 #endif

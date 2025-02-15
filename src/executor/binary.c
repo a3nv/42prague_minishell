@@ -6,12 +6,11 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 16:33:45 by iasonov           #+#    #+#             */
-/*   Updated: 2025/02/05 20:33:54 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/15 20:46:57 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include <stdio.h>
 
 void	compose_path(char *buffer, char *dir, char *command)
 {
@@ -65,7 +64,11 @@ char	*find_binary_path(char *command, t_array_list *list)
 		if (access(command, X_OK) == 0)
 			return (ft_strdup(command));
 		else
+		{
+			if (errno == EACCES)
+				perror(command);
 			return (NULL);
+		}
 	}
 	return (check_path(command, list));
 }

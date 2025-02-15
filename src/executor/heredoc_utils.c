@@ -6,26 +6,23 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:16:56 by iasonov           #+#    #+#             */
-/*   Updated: 2025/02/05 21:16:57 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/15 21:24:08 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	write_heredoc(char *tmp_file, char *delim)
+static void	process_heredoc_lines(int fd, char *delim)
 {
-	int		fd;
 	char	*line;
 
-	fd = open(tmp_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd < 0)
+	while (1)
 	{
-		perror("minishell");
-		return (-1);
-	}
-	line = get_next_line(STDIN_FILENO);
-	while (line != NULL)
-	{
+		ft_write("heredoc> ", STDERR_FILENO);
+		line = get_next_line(STDIN_FILENO);
+		if (!line)
+			break ;
+		line[strcspn(line, "\n")] = '\0';
 		if (ft_strcmp(line, delim) == 0)
 		{
 			free(line);
@@ -34,8 +31,20 @@ int	write_heredoc(char *tmp_file, char *delim)
 		write(fd, line, ft_strlen(line));
 		write(fd, "\n", 1);
 		free(line);
-		line = get_next_line(STDIN_FILENO);
 	}
+}
+
+int	write_heredoc(char *tmp_file, char *delim)
+{
+	int	fd;
+
+	fd = open(tmp_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd < 0)
+	{
+		perror("minishell");
+		return (-1);
+	}
+	process_heredoc_lines(fd, delim);
 	close(fd);
 	return (0);
 }
