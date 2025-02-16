@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 00:40:18 by iasonov           #+#    #+#             */
-/*   Updated: 2025/02/16 14:09:34 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/16 19:08:43 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,22 +60,46 @@ void	execute_binary(t_ast_node *node, t_state *state)
 	}
 }
 
-void	execute_redirection_node(t_ast_node *node, t_state *state)
+int	apply_redirection_chain(t_ast_node *node)
 {
-	int	saved_stdin;
-	int	saved_stdout;
+	int	ret;
+
+	if (node->left && node->left->type == NODE_REDIRECTION)
+	{
+		ret = apply_redirection_chain(node->left);
+		if (ret < 0)
+			return (ret);
+	}
+	ret = handle_heredoc(node);
+	if (ret < 0)
+		return (ret);
+	ret = handle_redirections(node);
+	return (ret);
+}
+
+void	execute_redirection_chain(t_ast_node *node, t_state *state)
+{
+	int			saved_stdin;
+	int			saved_stdout;
+	t_ast_node	*cmd_node;
 
 	saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);
-	if (apply_redirections(node, &saved_stdin, &saved_stdout) < 0)
+	if (apply_redirection_chain(node) < 0)
 	{
 		restore_fds(saved_stdin, saved_stdout);
 		return ;
 	}
-	if (node->left != NULL)
-		execute_ast(node->left, state);
-	else
+	cmd_node = node;
+	while (cmd_node && cmd_node->type == NODE_REDIRECTION)
+		cmd_node = cmd_node->left;
+	if (!cmd_node)
+	{
 		printf("Syntax error: missing command before redirection\n");
+		restore_fds(saved_stdin, saved_stdout);
+		return ;
+	}
+	execute_ast(cmd_node, state);
 	restore_fds(saved_stdin, saved_stdout);
 }
 
@@ -85,7 +109,7 @@ void	execute_ast(t_ast_node *node, t_state *state)
 		return ;
 	if (node->type == NODE_REDIRECTION)
 	{
-		execute_redirection_node(node, state);
+		execute_redirection_chain(node, state);
 		return ;
 	}
 	if (node->type == NODE_COMMAND)
