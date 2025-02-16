@@ -39,6 +39,7 @@ SRC = src/main.c \
 	  src/executor/builtin_unset.c \
 	  src/executor/pipe.c \
 	  src/executor/binary.c \
+	  src/executor/binary_helper.c \
 	  src/executor/heredoc_utils.c \
 	  src/executor/redirection_utils.c \
 	  src/signal/signal.c \

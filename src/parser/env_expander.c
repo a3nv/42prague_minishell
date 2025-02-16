@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 23:28:38 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/08 23:32:57 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/16 14:09:54 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,16 @@
 char	*get_expanded_value(t_state *state, char *key)
 {
 	char	*value;
+	char	*dup;
 
 	if (ft_strcmp(key, "?") == 0)
 		return (ft_itoa(state->last_exit_code));
 	value = array_list_get_env_value(state->envp_list, key);
 	if (value == NULL)
 		return (ft_strdup(""));
-	return (ft_strdup(value));
+	dup = ft_strdup(value);
+	free(value);
+	return (dup);
 }
 
 int	handle_exit_code_expansion(char **start, t_state *state, char **result)

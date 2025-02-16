@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:12:25 by aevstign          #+#    #+#             */
-/*   Updated: 2025/02/15 21:27:35 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/16 14:08:35 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,14 @@ void			execute_binary(t_ast_node *node, t_state *state);
 char			*find_binary_path(char *command, t_array_list *list);
 void			spawn_binary(char *binary_path, t_ast_node *node,
 					t_state *state);
+
+// binary helper
+void			child_process(char *binary_path, t_ast_node *node,
+					t_state *state);
+void			parent_process(pid_t pid, t_state *state);
+void			compose_path(char *buffer, char *dir, char *command);
+char			*build_candidate_path(char *dir, char *command);
+char			*find_accessible_path(char *command, char **dirs);
 
 // redirection utils && heredoc utils
 int				write_heredoc(char *tmp_file, char *delim);
