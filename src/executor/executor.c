@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 00:40:18 by iasonov           #+#    #+#             */
-/*   Updated: 2025/02/15 20:46:46 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/16 14:09:34 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,19 @@ void	execute_binary(t_ast_node *node, t_state *state)
 	if (apply_redirections(node, &saved_stdin, &saved_stdout) < 0)
 		return ;
 	binary_path = find_binary_path(node->args[0], state->envp_list);
-	if (!binary_path)
+	if (binary_path)
+	{
+		spawn_binary(binary_path, node, state);
+		restore_fds(saved_stdin, saved_stdout);
+		free(binary_path);
+	}
+	else
 	{
 		ft_write(node->args[0], STDOUT_FILENO);
 		ft_write(": command not found\n", STDOUT_FILENO);
 		restore_fds(saved_stdin, saved_stdout);
-		return ;
+		state->last_exit_code = 127;
 	}
-	spawn_binary(binary_path, node, state);
-	restore_fds(saved_stdin, saved_stdout);
-	free(binary_path);
 }
 
 void	execute_redirection_node(t_ast_node *node, t_state *state)

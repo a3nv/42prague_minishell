@@ -6,12 +6,13 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 23:28:11 by iasonov           #+#    #+#             */
-/*   Updated: 2025/02/15 21:27:41 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/16 14:10:20 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 volatile sig_atomic_t	g_reset_requested;
 
@@ -26,6 +27,7 @@ char	*read_input(t_state *state)
 		printf("\nExiting minishell...\n");
 		reset_state(state);
 		free_envp_list(state);
+		free(state);
 		rl_clear_history();
 		exit(EXIT_FAILURE);
 	}
@@ -65,7 +67,10 @@ void	loop(t_state *state)
 		print_tokens(state->token_list);
 		state->root_node = transform_list(state);
 		if (!state->root_node)
+		{
+			reset_state(state);
 			continue ;
+		}
 		execute_ast(state->root_node, state);
 		reset_state(state);
 	}

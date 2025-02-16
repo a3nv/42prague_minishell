@@ -22,6 +22,7 @@ SRCS = ../src/utils/main_utils.c \
        ../src/lexer/lexer.c \
 	   ../src/lexer/lexer_utils.c \
 	   ../src/executor/binary.c \
+	   ../src/executor/binary_helper.c \
 	   ../libft/arraylist/ft_array_list_add.c \
 	   ../libft/arraylist/ft_array_list_create.c \
 	   ../libft/arraylist/ft_array_list_get.c \

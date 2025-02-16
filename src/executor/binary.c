@@ -6,53 +6,35 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 16:33:45 by iasonov           #+#    #+#             */
-/*   Updated: 2025/02/15 20:46:57 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/16 14:09:11 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	compose_path(char *buffer, char *dir, char *command)
-{
-	int		dir_len;
-	char	*backslash;
-
-	dir_len = ft_strlen(dir);
-	if (dir[dir_len - 1] == '/')
-		backslash = "";
-	else
-		backslash = "/";
-	ft_str_builder(buffer, dir_len + ft_strlen(command) + 2,
-		dir, backslash, command, NULL);
-}
-
+/*
+ * check_path:
+ *   Retrieves the PATH variable from the environment list,
+ *   splits it into directories, and uses find_accessible_path
+ *   to locate the executable. Cleans up allocated memory before
+ *   returning.
+ */
 char	*check_path(char *command, t_array_list *list)
 {
-	char	*path;
+	char	*env_path;
 	char	**dirs;
-	int		i;
-	char	*full_path;
-	char	buffer[1024];
+	char	*result;
 
-	path = array_list_get_env_value(list, "PATH");
-	if (!path)
+	env_path = array_list_get_env_value(list, "PATH");
+	if (!env_path)
 		return (NULL);
-	dirs = ft_split(path, ':');
-	i = 0;
-	while (dirs[i])
-	{
-		compose_path(buffer, dirs[i], command);
-		full_path = ft_strdup(buffer);
-		if (access(full_path, X_OK) == 0)
-		{
-			free_dirs(dirs);
-			return (full_path);
-		}
-		free(full_path);
-		i++;
-	}
+	dirs = ft_split(env_path, ':');
+	free(env_path);
+	if (!dirs)
+		return (NULL);
+	result = find_accessible_path(command, dirs);
 	free_dirs(dirs);
-	return (NULL);
+	return (result);
 }
 
 char	*find_binary_path(char *command, t_array_list *list)
@@ -76,7 +58,6 @@ char	*find_binary_path(char *command, t_array_list *list)
 void	spawn_binary(char *binary_path, t_ast_node *node, t_state *state)
 {
 	pid_t	pid;
-	int		status;
 
 	pid = fork();
 	if (pid < 0)
@@ -85,17 +66,7 @@ void	spawn_binary(char *binary_path, t_ast_node *node, t_state *state)
 		return ;
 	}
 	else if (pid == 0)
-	{
-		if (execve(binary_path, node->args, state->envp_list->data) < 0)
-		{
-			perror("execve");
-			exit(EXIT_FAILURE);
-		}
-	}
+		child_process(binary_path, node, state);
 	else
-	{
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-			state->last_exit_code = WEXITSTATUS(status);
-	}
+		parent_process(pid, state);
 }
