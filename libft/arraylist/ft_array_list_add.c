@@ -43,4 +43,6 @@ void	array_list_add(t_array_list *list, char *element)
 		exit(EXIT_FAILURE);
 	}
 	list->size++;
+	list->data[list->size] = NULL;
 }
+
