@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 22:49:26 by iasonov           #+#    #+#             */
-/*   Updated: 2025/02/14 19:46:12 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/17 00:20:18 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ char			*ft_free(char *remainder, char *buffer);
 
 // gnl
 char			*get_next_line(int fd);
+void			cleanup(void);
 
 // hashmap
 typedef struct s_hashmap_entry
