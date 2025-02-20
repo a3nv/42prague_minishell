@@ -6,12 +6,11 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 17:37:12 by iasonov           #+#    #+#             */
-/*   Updated: 2024/12/22 19:06:57 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/18 10:12:02 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include <stdio.h>
 
 void	builtin_echo(t_ast_node *node)
 {
@@ -32,6 +31,6 @@ void	builtin_echo(t_ast_node *node)
 			ft_write(" ", STDOUT_FILENO);
 		i++;
 	}
-	if (new_line)
+	if (!new_line)
 		ft_write("\n", STDOUT_FILENO);
 }

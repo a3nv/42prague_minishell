@@ -50,6 +50,7 @@ typedef enum e_token_type
 	TOKEN_EOF,
 	TOKEN_ERROR,
 	TOKEN_NULL,
+	TOKEN_EQUALS,
 	TOKEN_UNKNOWN,
 }			t_token_type;
 

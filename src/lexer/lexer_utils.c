@@ -55,6 +55,8 @@ t_token_type	get_char_type(char c)
 		return (TOKEN_OUTPUT);
 	if (c == '<')
 		return (TOKEN_INPUT);
+	if (c == '=')
+		return (TOKEN_EQUALS);
 	return (TOKEN_WORD);
 }
 
