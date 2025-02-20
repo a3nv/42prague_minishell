@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 22:42:50 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/06 23:32:50 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/20 20:37:26 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int	find_matched_key(char *key, char **envp)
 	key_len = ft_strlen(key);
 	while (envp[i])
 	{
-		if (ft_strlen(envp[i]) >= key_len && ft_strncmp(key, envp[i], key_len) == 0 && envp[i][key_len] == '=')
+		if (ft_strlen(envp[i]) >= key_len && ft_strncmp(key, envp[i], key_len)
+			== 0 && envp[i][key_len] == '=')
 			return (i);
 		i++;
 	}
