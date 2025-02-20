@@ -6,12 +6,11 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 20:44:26 by iasonov           #+#    #+#             */
-/*   Updated: 2025/02/20 21:18:19 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/20 21:37:30 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 int	count_env_vars(char	**envp)
 {

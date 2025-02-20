@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 14:18:32 by iasonov           #+#    #+#             */
-/*   Updated: 2025/02/20 21:07:00 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/20 21:37:23 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static int	init_node_args(t_ast_node *node, char *value)
  *   Allocates a new AST node of the given type. If a value is provided,
  *   it initializes the node's argument array using init_node_args.
  */
-t_ast_node	*create_ast_node(t_node_type type, char *value) 
+t_ast_node	*create_ast_node(t_node_type type, char *value)
 {
 	t_ast_node	*node;
 

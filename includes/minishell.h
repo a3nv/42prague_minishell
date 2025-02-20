@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:12:25 by aevstign          #+#    #+#             */
-/*   Updated: 2025/02/20 21:19:55 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/20 21:31:13 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,8 @@ void			create_command_node(t_ast_node **cur, t_token *token,
 					t_state *state);
 
 // parser_redirect_node
-void			create_redirect_node(t_ast_node **current_node, t_list **list_item,
-					t_token *token);
+void			create_redirect_node(t_ast_node **current_node,
+					t_list **list_item, t_token *token);
 
 // parser_pipe_node
 void			create_pipe_node(t_ast_node **root, t_ast_node **current_node);
