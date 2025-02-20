@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 23:28:11 by iasonov           #+#    #+#             */
-/*   Updated: 2025/02/16 14:10:20 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/20 21:21:43 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	reset_by_request(t_state *state)
 	g_reset_requested = 0;
 }
 
-void	loop(t_state *state)
+void	loop_main(t_state *state)
 {
 	while (1)
 	{
@@ -83,7 +83,7 @@ int	main(int argc, char **argv, char **envp)
 	validate_args(argc, argv);
 	register_signals();
 	state = init(envp);
-	loop(state);
+	loop_main(state);
 	free_envp_list(state);
 	rl_clear_history();
 	return (0);

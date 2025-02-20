@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:12:25 by aevstign          #+#    #+#             */
-/*   Updated: 2025/02/20 20:36:47 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/20 21:19:55 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,17 +136,25 @@ t_list			*lexer(char *input);
 
 // parser
 t_ast_node		*parse_tokens(t_state *state);
-void			create_command_node(t_ast_node **current_node,
-					t_list *list_item, t_token *token, t_state *state);
+
+// parser_command_node
+void			create_command_node(t_ast_node **cur, t_token *token,
+					t_state *state);
+
+// parser_redirect_node
+void			create_redirect_node(t_ast_node **current_node, t_list **list_item,
+					t_token *token);
+
+// parser_pipe_node
+void			create_pipe_node(t_ast_node **root, t_ast_node **current_node);
 
 // parseer node utils 
-t_ast_node		*create_ast_node(t_node_type type, char *value, t_list *list);
+t_ast_node		*create_ast_node(t_node_type type, char *value);
 
 // parser utils
 int				is_redirect(t_token_type type);
 int				count_args(t_list *current);
 int				validate_input(char *input);
-char			*expand_variable(t_state *state, char *value);
 
 // env expander
 char			*expand_variable(t_state *state, char *value);
