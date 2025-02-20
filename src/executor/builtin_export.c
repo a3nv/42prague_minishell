@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 20:25:58 by iasonov           #+#    #+#             */
-/*   Updated: 2025/02/20 22:25:42 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/20 22:33:41 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	builtin_export(t_ast_node *node, t_state *state)
 			continue ;
 		if (!is_valid(pair))
 		{
+			free_pair(pair);
 			print_export_error(node->args[i]);
 			continue ;
 		}
