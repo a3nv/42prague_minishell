@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 22:49:26 by iasonov           #+#    #+#             */
-/*   Updated: 2025/02/17 00:20:18 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/20 21:19:06 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,5 +158,6 @@ void			array_list_free(t_array_list *list);
 char			**get_data(t_array_list *list);
 char			*array_list_get_env_value(t_array_list *list, char *key);
 char			*array_list_get(t_array_list *list, char *key);
+t_pair			*parse_arg(char *arg);
 
 #endif

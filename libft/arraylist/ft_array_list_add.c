@@ -6,12 +6,11 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 22:33:41 by iasonov           #+#    #+#             */
-/*   Updated: 2025/01/20 23:50:36 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/20 21:14:41 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
-#include <stdlib.h>
 
 void	realloc_list(t_array_list *list)
 {

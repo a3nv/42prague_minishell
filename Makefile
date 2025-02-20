@@ -26,7 +26,10 @@ SRC = src/main.c \
 	  src/lexer/lexer.c \
 	  src/lexer/lexer_utils.c \
 	  src/parser/parser.c \
+	  src/parser/parser_command_node.c \
 	  src/parser/parser_node_utils.c \
+	  src/parser/parser_pipe_node.c \
+	  src/parser/parser_redirect_node.c \
 	  src/parser/parser_utils.c \
 	  src/parser/env_expander.c \
 	  src/executor/executor.c \
