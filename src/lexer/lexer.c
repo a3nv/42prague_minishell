@@ -99,7 +99,7 @@ t_list	*lexer(char *input)
 		token = create_token();
 		if (!token)
 			return (NULL);
-		if (ft_strchr("><|", input[i]))
+		if (ft_strchr("><|=", input[i]))
 			handle_operator(token, input, &i);
 		else
 			handle_word(token, input, &i);

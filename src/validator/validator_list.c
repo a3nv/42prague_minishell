@@ -6,7 +6,7 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 02:01:13 by iasonov           #+#    #+#             */
-/*   Updated: 2025/02/15 20:15:30 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/18 10:33:56 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,17 @@ int	check_invalid_pipe_usage(t_token *current, t_list *next_item)
 	return (0);
 }
 
+int	validate_equals(t_token *cur)
+{
+	if (ft_strlen(cur->value) == 1)
+	{
+		ft_write("minishell: syntax error near unexpected token `='\n",
+			STDOUT_FILENO);
+		return (1);
+	}
+	return (0);
+}
+
 int	validate_tokens(t_list *tokens)
 {
 	t_token	*current;
@@ -75,6 +86,8 @@ int	validate_tokens(t_list *tokens)
 	{
 		current = (t_token *)tokens->content;
 		next_item = tokens->next;
+		if (current->type == TOKEN_EQUALS)
+			return (validate_equals(current));
 		if (current->type == TOKEN_WORD)
 			has_command = 1;
 		if (!has_command && (is_redirection(current) || is_pipe(current)))

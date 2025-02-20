@@ -27,8 +27,3 @@ void	validate_args(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 }
-
-void	validate_input_(char *input)
-{
-	(void) input;
-}
