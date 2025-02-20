@@ -6,16 +6,19 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 20:51:27 by iasonov           #+#    #+#             */
-/*   Updated: 2025/02/20 21:11:19 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/20 21:38:41 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void append_argument(t_ast_node *node, char *new_arg)
+void	append_argument(t_ast_node *node, char *new_arg)
 {
-	int current_argc = node->argc;
-	char **new_args = realloc(node->args, sizeof(char *) * (current_argc + 2));
+	int		current_argc;
+	char	**new_args;
+
+	current_argc = node->argc;
+	new_args = realloc(node->args, sizeof(char *) * (current_argc + 2));
 	if (!new_args)
 	{
 		perror("realloc failed");
@@ -29,7 +32,7 @@ void append_argument(t_ast_node *node, char *new_arg)
 
 char	*expand_env_variable(t_token *token, t_state *state)
 {
-	char *expanded_value;
+	char	*expanded_value;
 
 	if (token->expandable && ft_strchr(token->value, '$'))
 	{
@@ -42,9 +45,9 @@ char	*expand_env_variable(t_token *token, t_state *state)
 	return (expanded_value);
 }
 
-void create_command_node(t_ast_node **cur, t_token *token, t_state *state)
+void	create_command_node(t_ast_node **cur, t_token *token, t_state *state)
 {
-	char *expanded_value;
+	char	*expanded_value;
 
 	expanded_value = expand_env_variable(token, state);
 	if (*cur && (*cur)->type == NODE_REDIRECTION)
@@ -56,7 +59,7 @@ void create_command_node(t_ast_node **cur, t_token *token, t_state *state)
 		}
 		else
 			append_argument((*cur)->left, expanded_value);
-		return;
+		return ;
 	}
 	if (*cur)
 		append_argument(*cur, expanded_value);
