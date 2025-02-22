@@ -6,11 +6,12 @@
 /*   By: iasonov <iasonov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 13:08:13 by iasonov           #+#    #+#             */
-/*   Updated: 2025/02/14 21:21:39 by iasonov          ###   ########.fr       */
+/*   Updated: 2025/02/21 22:44:51 by iasonov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+#include <stdlib.h>
 
 void	execite_pipe_child(int	*pipe_fd, t_ast_node *node,
 		t_state *state, int isLeft)
@@ -34,11 +35,17 @@ void	execite_pipe_child(int	*pipe_fd, t_ast_node *node,
 	close(pipe_fd[pipe_read_end]);
 	if (dup2(pipe_fd[pipe_write_end], redirect_fd) == -1)
 	{
+		reset_state(state);
+		free_envp_list(state);
+		free(state);
 		perror("dup2");
 		exit(EXIT_FAILURE);
 	}
 	close(pipe_fd[pipe_write_end]);
 	execute_ast(node, state);
+	reset_state(state);
+	free_envp_list(state);
+	free(state);
 	exit(EXIT_SUCCESS);
 }
 
